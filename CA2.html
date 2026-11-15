@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA2 · الكيمياء والمادة · منصة قطابري لإتقان كيمياء 1</title>
+<style>
+:root{--primary:#0e7c3a;--primary-dark:#0a5f2c;--positive:#198038;--error:#da1e28;--warning:#b28600;--bg:#fff;--surface:#f4f4f4;--surface-high:#e0e0e0;--text:#161616;--text-sec:#525252;--border:#e0e0e0;--radius:4px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+body{display:flex;flex-direction:column;min-height:100vh}
+header{background:var(--surface);padding:1rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.brand h1{margin:0;font-size:1.05rem;font-weight:700;color:var(--primary)}
+.brand .sub{font-size:.82rem;color:var(--text-sec);margin-top:2px}
+.header-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+main{flex:1;max-width:820px;margin:0 auto;padding:2rem 1rem;width:100%}
+footer{text-align:center;padding:1rem;color:var(--text-sec);font-size:.82rem;border-top:1px solid var(--border)}
+button,a.btn{font-family:inherit;font-size:1rem;padding:.6rem 1.2rem;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;background:var(--surface);color:var(--text);transition:.15s;text-decoration:none;display:inline-block;text-align:center}
+button:hover,a.btn:hover{background:var(--surface-high)}
+button.primary,a.btn.primary{background:var(--primary);color:#fff}
+button.primary:hover,a.btn.primary:hover{background:var(--primary-dark)}
+button.primary:disabled{background:var(--surface-high);color:var(--text-sec);cursor:not-allowed}
+button.outline{background:#fff;border:1px solid var(--border);color:var(--text)}
+button.outline:hover{background:var(--surface)}
+.fab-home{position:fixed;bottom:1.5rem;left:1.5rem;width:54px;height:54px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(14,124,58,0.45);font-size:1.5rem;display:flex;align-items:center;justify-content:center;z-index:50;padding:0;transition:transform .15s,background .15s;text-decoration:none}
+.fab-home:hover{background:var(--primary-dark);transform:scale(1.08);text-decoration:none;color:#fff}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+.breadcrumb{font-size:.85rem;color:var(--text-sec);margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
+.breadcrumb a{color:var(--primary);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.group-title{margin:1.5rem 0 .7rem;font-size:1rem;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);padding-bottom:.3rem}
+.objective-row{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:.5rem;cursor:pointer;transition:.15s;background:#fff;width:100%;font-family:inherit;font-size:inherit;text-align:right;color:var(--text)}
+.objective-row > *:not(:first-child){margin-right:1rem}
+.objective-row:hover{border-color:var(--primary)}
+.objective-row.locked{opacity:.5;cursor:not-allowed;background:var(--surface)}
+.objective-row.mastered{border-color:var(--positive);background:#edf7f0}
+.obj-text{flex:1;font-size:.95rem}
+.obj-id{font-family:monospace;font-size:.8rem;color:var(--text-sec);margin-left:.5rem}
+.state-badge{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.72rem;font-weight:600;white-space:nowrap}
+.state-AVAILABLE{background:#edf7f0;color:var(--primary)}
+.state-LOCKED{background:var(--surface-high);color:var(--text-sec)}
+.state-MASTERED{background:#edf7f0;color:var(--positive)}
+.state-DIAGNOSTIC,.state-INSTRUCTION,.state-CHECK,.state-REMEDIATION,.state-RECHECK{background:#fff3e0;color:var(--warning)}
+.question{font-size:1.08rem;font-weight:500;margin-bottom:1rem;line-height:1.5}
+.options{display:flex;flex-direction:column}
+.options > * + *{margin-top:.5rem}
+.option{padding:.85rem 1.1rem;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:.15s;font-size:.95rem;background:#fff;color:var(--text);font-family:inherit;text-align:right;width:100%;display:block}
+.option:hover:not(:disabled){border-color:var(--primary);background:#f5fbf7}
+.option.correct{border-color:var(--positive);background:#edf7f0}
+.option.wrong{border-color:var(--error);background:#fef2f2}
+.option:disabled{cursor:default;opacity:1}
+.feedback{margin-top:1rem;padding:1rem;border-radius:var(--radius);font-size:.92rem}
+.feedback.correct{background:#edf7f0;border-right:4px solid var(--positive)}
+.feedback.wrong{background:#fef2f2;border-right:4px solid var(--error)}
+.feedback.neutral{background:#edf7f0;border-right:4px solid var(--primary)}
+.progress-bar{height:8px;background:var(--surface);border-radius:4px;overflow:hidden;margin:.5rem 0}
+.progress-bar>div{height:100%;background:var(--primary);transition:width .3s}
+.textarea{width:100%;min-height:110px;padding:1rem;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:1rem;resize:vertical}
+.prose h3{margin-top:1.5rem;margin-bottom:.5rem;color:var(--primary);font-size:1.05rem}
+.prose ul,.prose ol{padding-right:1.5rem}
+.prose table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+.prose th,.prose td{padding:.5rem;border:1px solid var(--border);text-align:right}
+.prose th{background:var(--surface)}
+.certificate{background:#fff;border:8px double var(--primary);padding:3rem 2rem;text-align:center;margin:2rem 0}
+.certificate h2{color:var(--primary);font-size:1.7rem;margin-top:0}
+.certificate .name{font-size:2rem;font-weight:700;margin:1.5rem 0}
+.certificate .course{font-size:1.1rem;color:var(--text-sec)}
+.certificate .code{font-family:monospace;font-size:.85rem;color:var(--text-sec);margin-top:2rem}
+.certificate .sig{margin-top:3rem;font-weight:600;font-size:1rem}
+.muted{color:var(--text-sec);font-size:.88rem}
+.row{display:flex;flex-wrap:wrap;margin:1rem -.25rem 0}
+.row > *{margin:0 .25rem .5rem}
+.hidden{display:none}
+.skip-btn{background:#fff;color:var(--text-sec);border-style:dashed;margin-top:.5rem}
+.skip-btn:hover{background:var(--surface)}
+.storage-warn{background:#fff3e0;border:1px solid var(--warning);color:#7a4f00;padding:.7rem 1rem;border-radius:var(--radius);font-size:.85rem;margin-bottom:1rem}
+@media print{body *{visibility:hidden}.certificate,.certificate *{visibility:visible}.certificate{position:absolute;top:0;right:0;left:0;border:4px solid #000}.no-print{display:none!important}.fab-home{display:none!important}@page{margin:1.5cm}}
+@media(max-width:600px){header,main{padding:1rem}.certificate{padding:1.5rem 1rem}.certificate .name{font-size:1.4rem}.fab-home{bottom:1rem;left:1rem;width:48px;height:48px;font-size:1.3rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>منصة قطابري لإتقان كيمياء 1</h1>
+    <div class="sub">CA2 · الكيمياء والمادة · المعلم محمد قطابري راجحي</div>
+  </div>
+  <div class="header-actions">
+    <a href="index.html" class="btn outline">🏠 الرئيسية</a>
+  </div>
+</header>
+<main id="view"></main>
+<footer>مجمع العز التعليمي · تعلّم حتى الإتقان — مجانًا للجميع</footer>
+<a href="index.html" class="fab-home" aria-label="الصفحة الرئيسية" title="الصفحة الرئيسية">🏠</a>
+
+<script nomodule>
+document.getElementById('view').innerHTML = '<div class="card"><h2>متصفحك قديم</h2><p>تحتاج Chrome 61+ أو Firefox 60+ أو Safari 11+ أو Edge 16+.</p></div>';
+</script>
+<script type="module">
+const LESSON_CODE = 'CA2';
+const LESSON_ID = '1-2';
+const CHAPTER_ID = 'A';
+const LESSON_TITLE = 'الكيمياء والمادة';
+const THRESHOLD = 0.67; // 2 من 3
+const EXTERNAL_PREREQS = ['PRE-1-STATES'];
+
+const REFLECTION_KEYWORDS = {
+  '1-2-1': ['مادة', 'تغيرات', 'دراسة', 'كيمياء'],
+  '1-2-2': ['صلب', 'سائل', 'غاز', 'بلازما', 'أمثلة'],
+  '1-2-3': ['نموذج', 'تمثيل', 'مرئي', 'لفظي'],
+  '1-2-4': ['مادية', 'حاسوبية', 'رياضية', 'كرات'],
+  '1-2-5': ['مجهري', 'ذرات', 'ترتيب', 'سلوك'],
+  '1-2-6': ['غير مرئية', 'جهرية', 'تفسير', 'ذوبان'],
+  '1-2-7': ['تبسيط', 'معقدة', 'ظواهر', 'شرح'],
+  '1-2-8': ['كتلة', 'كمية', 'ثابتة', 'مادة'],
+  '1-2-9': ['وزن', 'جاذبية', 'قوة', 'جذب'],
+  '1-2-10': ['ثابتة', 'متغير', 'كفتين', 'نابض'],
+  '1-2-11': ['جاذبية', 'قمر', 'مكان', 'اختلاف'],
+  '1-2-12': ['دقيقة', 'موحدة', 'جاذبية', 'تفضيل'],
+  '1-2-13': ['عضوية', 'غير عضوية', 'فيزيائية', 'تحليلية', 'حيوية'],
+  '1-2-14': ['كربون', 'طاقة', 'تحليل', 'كائنات'],
+  '1-2-15': ['بلاستيك', 'أدوية', 'تطبيقات', 'حياة'],
+  '1-2-16': ['اتساع', 'تنوع', 'تخصص', 'فروع']
+};
+
+const OBJECTIVES = [
+  { id: '1-2-1', order: 1, text: 'أن يُعرّف الطالب مفهوم علم الكيمياء.', bloom: 'تذكر', prereqs: ['PRE-1-STATES'], instruction: { explanation: `<b>علم الكيمياء:</b> هو العلم الذي يدرس <b>المادة</b> و<b>تغيراتها</b> من حيث التركيب والخواص والتفاعلات.`, prompt: 'عرّف علم الكيمياء بكلماتك.' }, remediation: { explanation: 'الكيمياء هي دراسة كل ما يحيط بنا (المادة) وكيف يتغير (مثل صدأ الحديد أو احتراق الخشب).', analogy: 'مثل دراسة قواعد لعبة لتفهم كيف تعمل.' } },
+  { id: '1-2-2', order: 2, text: 'أن يعطي الطالب أمثلة على بعض أشكال المادة.', bloom: 'تذكر', prereqs: ['1-2-1'], instruction: { explanation: `توجد المادة في أشكال (حالات) رئيسة:<ul><li><b>الصلب:</b> له شكل وحجم ثابتان (مثل الصخر).</li><li><b>السائل:</b> له حجم ثابت وشكل متغير (مثل الماء).</li><li><b>الغاز:</b> ليس له شكل ولا حجم ثابت (مثل الهواء).</li><li><b>البلازما:</b> غاز متأين عالي الطاقة (مثل البرق).</li></ul>`, prompt: 'اذكر مثالًا واحدًا لكل من الصلب والسائل والغاز.' }, remediation: { explanation: 'الثلج صلب، ماء الشرب سائل، بخار الماء غاز. كلها ماء لكن بأشكال مختلفة.', analogy: 'مثل قطع الحلوى (صلبة) والعصير (سائل) وبخار الشاي (غاز).' } },
+  { id: '1-2-3', order: 3, text: 'أن يُعرّف الطالب مفهوم النموذج.', bloom: 'تذكر', prereqs: ['1-2-2'], instruction: { explanation: `<b>النموذج:</b> هو تمثيل مرئي أو لفظي أو رياضي لشيء ما، يُستخدم لشرح أو تفسير ظاهرة لا يمكن رؤيتها أو فهمها بشكل مباشر.`, prompt: 'ما هو النموذج في العلم؟' }, remediation: { explanation: 'النموذج هو "بديل" أو "شرح مصغر" لشيء كبير أو صغير جدًا لا نستطيع رؤيته.', analogy: 'مثل رسم خريطة لدولة، لا يمكنك رؤية الدولة كلها دفعة واحدة لكن الخريطة تساعدك.' } },
+  { id: '1-2-4', order: 4, text: 'أن يعدد الطالب بعض أنواع النماذج المستخدمة لتمثيل المادة.', bloom: 'تذكر', prereqs: ['1-2-3'], instruction: { explanation: `أنواع النماذج:<ul><li><b>نماذج مادية:</b> مثل كرات الصلصال وأعواد الأسنان لتمثيل الجزيئات.</li><li><b>نماذج حاسوبية:</b> مثل برامج المحاكاة ثلاثية الأبعاد.</li><li><b>نماذج رياضية:</b> معادلات وقوانين (مثل معادلة سرعة التفاعل).</li></ul>`, prompt: 'اذكر نوعين من أنواع النماذج.' }, remediation: { explanation: 'نستخدم نموذج الكرات (مادي) أو برنامج حاسوبي ليرينا كيف تتحرك الذرات (حاسوبي).', analogy: 'مثل استخدام مجسم للسيارة (مادي) أو محاكاة للقيادة في الكمبيوتر (حاسوبي).' } },
+  { id: '1-2-5', order: 5, text: 'أن يفسر الطالب سبب اهتمام الكيميائيين بالوصف تحت المجهري للمادة.', bloom: 'فهم', prereqs: ['1-2-4'], instruction: { explanation: `المستوى المجهري (دون الذري) يصف ترتيب الذرات والجزيئات وحركتها.<br>الكيميائيون يهتمون بهذا المستوى لأن <b>سلوك المادة وخواصها (المرئية) يعتمد كليًا على سلوك ذراتها (غير المرئية)</b>.`, prompt: 'لماذا ندرس ما لا يمكن رؤيته بالعين (الذرات) لنفهم ما نراه؟' }, remediation: { explanation: 'تخيل مبنى جميلًا (المادة المرئية). جماله يعتمد على كيفية ترتيب الطوب (الذرات). الكيميائي يدرس الطوب ليفهم المبنى.', analogy: 'مثل الطبيب الذي يدرس الخلايا المجهرية ليفهم مرض المريض.' } },
+  { id: '1-2-6', order: 6, text: 'أن يفسر الطالب سبب دراسة الكيميائيين التغيرات التي لا تُرى بالعين المجردة.', bloom: 'فهم', prereqs: ['1-2-5'], instruction: { explanation: `التغيرات الجهرية (المرئية) مثل ذوبان السكر في الماء، سببها تغيرات مجهرية (انفصال جزيئات السكر وتوزعها).<br>الكيميائي يدرس التغيرات المجهرية لأنها <b>السبب المباشر</b> لما نراه.`, prompt: 'كيف يفسر المستوى المجهري ذوبان السكر الذي نراه بالعين؟' }, remediation: { explanation: 'السكر يختفي من العين لأنه تفتت إلى جزيئات صغيرة جدًا لا تُرى، لكنه موجود. ندرس ذلك لنفهم العملية.', analogy: 'مثل رؤية دخان (مرئي) سببه حريق (سبب).' } },
+  { id: '1-2-7', order: 7, text: 'أن يفسر الطالب سبب استعمال الكيميائيين النماذج لدراسة المادة.', bloom: 'فهم', prereqs: ['1-2-6'], instruction: { explanation: `يستخدم العلماء النماذج لـ:<ol><li><b>تبسيط المفاهيم المعقدة</b>.</li><li><b>تفسير الظواهر</b> التي لا يمكن ملاحظتها مباشرة (مثل شكل الذرة).</li><li><b>التنبؤ</b> بسلوك مادة جديدة.</li></ol>`, prompt: 'ما الفائدة الأساسية من استخدام النماذج في الكيمياء؟' }, remediation: { explanation: 'الذرة لا تُرى، لذا نصنع نموذجًا لها لنتخيل شكلها ونتعلم منها.', analogy: 'مثل استخدام نموذج طبي لقلب بشري ليفهم الطلاب كيفية عمله.' } },
+  { id: '1-2-8', order: 8, text: 'أن يُعرّف الطالب مفهوم الكتلة.', bloom: 'تذكر', prereqs: ['1-2-7'], instruction: { explanation: `<b>الكتلة:</b> هي كمية المادة في جسم ما، وهي <b>ثابتة</b> لا تتغير بتغير الموقع.`, prompt: 'عرّف الكتلة وهل تتغير بتغير المكان؟' }, remediation: { explanation: 'الكتلة هي "مقدار المادة". إذا أخذت كيلو من التفاح للأرض أو القمر، سيبقى كيلو واحدًا.', analogy: 'مثل عدد القطع داخل صندوق، لا يتغير حتى لو نقلت الصندوق من مكان لآخر.' } },
+  { id: '1-2-9', order: 9, text: 'أن يُعرّف الطالب مفهوم الوزن.', bloom: 'تذكر', prereqs: ['1-2-8'], instruction: { explanation: `<b>الوزن:</b> هو مقياس لقوة جذب الأرض (أو أي جرم سماوي) للجسم، ويتغير بتغير قوة الجاذبية.`, prompt: 'عرّف الوزن وهل هو ثابت؟' }, remediation: { explanation: 'الوزن هو "قوة الشد". الأرض تشدك بقوة، لكن على القمر (جاذبيته أقل) سيكون شدك للأسفل أقل.', analogy: 'مثل شد حبل مطاطي، كلما كانت القوة أكبر (جاذبية أكبر)، كان الوزن أكبر.' } },
+  { id: '1-2-10', order: 10, text: 'أن يُقارن الطالب بين الكتلة والوزن.', bloom: 'تحليل', prereqs: ['1-2-9'], instruction: { explanation: `<table><tr><th>الوجه</th><th>الكتلة</th><th>الوزن</th></tr><tr><td>التعريف</td><td>كمية المادة</td><td>قوة الجذب</td></tr><tr><td>الثبات</td><td>ثابتة</td><td>متغيرة (حسب الجاذبية)</td></tr><tr><td>الوحدة</td><td>كيلوجرام (kg)</td><td>نيوتن (N)</td></tr><tr><td>الجهاز</td><td>ميزان ذو كفتين</td><td>ميزان نابضي</td></tr></table>`, prompt: 'ما الفرق الجوهري بين الكتلة والوزن من حيث الثبات؟' }, remediation: { explanation: 'الكتلة مقدار ثابت (كمية)، الوزن قوة تتغير. الكتلة تقاس بالكيلو، الوزن بالنيوتن.', analogy: 'الكتلة = وزنك الحقيقي بالمادة. الوزن = مدى ثقلك بسبب جاذبية الكوكب الذي تقف عليه.' } },
+  { id: '1-2-11', order: 11, text: 'أن يذكر الطالب سبب تغيير وزن الجسم في مواضع مختلفة.', bloom: 'فهم', prereqs: ['1-2-10'], instruction: { explanation: `يتغير وزن الجسم لأن <b>قوة الجاذبية تختلف من مكان لآخر</b>.<br>مثلاً: جاذبية القمر تعادل 1/6 جاذبية الأرض، لذا وزنك على القمر سيكون سدس وزنك على الأرض، بينما كتلتك ثابتة.`, prompt: 'لماذا يزن رائد الفضاء أقل على القمر؟' }, remediation: { explanation: 'القمر أصغر من الأرض، فجاذبيته أضعف. جاذبيته تسحبك بقوة أقل، فيقل وزنك.', analogy: 'مثل مغناطيس قوي (الأرض) ومغناطيس ضعيف (القمر)، قوة الجذب تختلف.' } },
+  { id: '1-2-12', order: 12, text: 'أن يفسر الطالب سبب تفضيل العلماء استخدام مقياس الكتلة بدلاً من الوزن.', bloom: 'تحليل', prereqs: ['1-2-11'], instruction: { explanation: `يفضل العلماء الكتلة لأنها <b>ثابتة</b> ولا تتأثر بالجاذبية.<br>استخدام الكتلة يضمن أن القياسات <b>دقيقة وموحدة</b> أينما أُجريت التجربة (على الأرض أو في الفضاء).`, prompt: 'لماذا يفضل العلماء قياس الكتلة بدلًا من الوزن؟' }, remediation: { explanation: 'لو قاس العالم الوزن على الأرض ثم على القمر، سيجد نتائج مختلفة. لكن الكتلة تعطي نتيجة ثابتة دائمًا.', analogy: 'مثل استخدام وحدة قياس قياسية (مثل المتر)، لا تتغير مهما كان المكان.' } },
+  { id: '1-2-13', order: 13, text: 'أن يعدد الطالب فروع علم الكيمياء.', bloom: 'تذكر', prereqs: ['1-2-12'], instruction: { explanation: `فروع الكيمياء الرئيسية:<ol><li><b>العضوية:</b> تدرس مركبات الكربون.</li><li><b>غير العضوية:</b> تدرس المواد التي لا تحتوي كربون.</li><li><b>الفيزيائية:</b> تدرس الطاقة والتغيرات.</li><li><b>التحليلية:</b> تحلل تركيب المواد.</li><li><b>الحيوية:</b> تدرس العمليات الكيميائية في الكائنات الحية.</li></ol>`, prompt: 'اذكر الفروع الخمسة لعلم الكيمياء.' }, remediation: { explanation: 'الخمسة هي: عضوية، غير عضوية، فيزيائية، تحليلية، حيوية.', analogy: 'مثل تخصصات الطب (قلب، عيون، أسنان...)، الكيمياء تخصصاتها خمسة.' } },
+  { id: '1-2-14', order: 14, text: 'أن يحدد الطالب المجالات التي يدرسها كل فرع من فروع الكيمياء المختلفة.', bloom: 'فهم', prereqs: ['1-2-13'], instruction: { explanation: `<ul><li><b>العضوية:</b> البلاستيك، الوقود، الأدوية.</li><li><b>غير العضوية:</b> المعادن، الأملاح، الصخور.</li><li><b>الفيزيائية:</b> سرعة التفاعل، الطاقة، الحرارة.</li><li><b>التحليلية:</b> فحص جودة المياه، تحديد مكونات عينة.</li><li><b>الحيوية:</b> التفاعلات داخل جسم الإنسان، الإنزيمات.</li></ul>`, prompt: 'أي فرع يهتم بدراسة المواد التي تحتوي على الكربون؟' }, remediation: { explanation: 'العضوية = كربون. التحليلية = تحليل. الحيوية = حياة.', analogy: 'مثل معرفة أي طبيب تذهب إليه (عيون للعين، قلب للقلب).' } },
+  { id: '1-2-15', order: 15, text: 'أن يعطي الطالب أمثلة على تطبيقات بعض فروع الكيمياء في الحياة.', bloom: 'تطبيق', prereqs: ['1-2-14'], instruction: { explanation: `تطبيقات حياتية:<ul><li><b>العضوية:</b> صناعة البلاستيك والملابس.</li><li><b>التحليلية:</b> تحليل الأدوية لكشف الغش.</li><li><b>الحيوية:</b> صناعة اللقاحات والأدوية.</li><li><b>الفيزيائية:</b> تطوير بطاريات السيارات.</li></ul>`, prompt: 'اذكر تطبيقًا حياتيًا واحدًا للكيمياء العضوية.' }, remediation: { explanation: 'البلاستيك (عضوية)، الأدوية (حيوية)، فحص المياه (تحليلية).', analogy: 'مثل استخدام أدوات المطبخ المختلفة لكل طبق (كل فرع له تطبيقه).' } },
+  { id: '1-2-16', order: 16, text: 'أن يعلل الطالب سبب وجود عدة فروع لعلم الكيمياء.', bloom: 'تحليل', prereqs: ['1-2-15'], instruction: { explanation: `تعددت الفروع بسبب:<ol><li><b>اتساع مجال دراسة المادة</b> وتنوع أشكالها.</li><li><b>التخصص</b> مطلوب لتعميق الفهم.</li><li>تلبية احتياجات <b>الصناعة والطب والزراعة</b>.</li></ol>`, prompt: 'لماذا لا يكتفي العلماء بفرع واحد للكيمياء؟' }, remediation: { explanation: 'المادة معقدة ومتشعبة (من الذرات للأدوية للبيئة)، فصعب على عالم واحد تغطية كل شيء.', analogy: 'مثل تخصصات الهندسة (مدنية، كهربائية، ميكانيكية) لأن مجال البناء والتعمير واسع جدًا.' } }
+];
+
+const ITEMS = {
+  '1-2-1': [
+    { q: 'ما تعريف علم الكيمياء؟', opts: ['دراسة الكائنات الحية', 'دراسة المادة وتغيراتها', 'دراسة الفضاء', 'دراسة الأرقام'], ans: 1, expl: 'الكيمياء تدرس المادة وتغيراتها.', wrongMap: { "0": 'الأحياء تدرس الكائنات.', "2": 'الفلك يدرس الفضاء.', "3": 'الرياضيات تدرس الأرقام.' } },
+    { q: 'أي مما يلي ليس من اهتمامات الكيمياء؟', opts: ['صدأ الحديد', 'احتراق الخشب', 'حركة الكواكب', 'ذوبان الملح'], ans: 2, expl: 'حركة الكواكب تخصص فيزياء وفلك.', wrongMap: { "0": 'الصدأ تفاعل كيميائي.', "1": 'الاحتراق تفاعل كيميائي.', "3": 'الذوبان تغير فيزيائي/كيميائي.' } },
+    { q: 'الكيمياء تفسر التغيرات في...', opts: ['تركيب المادة', 'خواص المادة', 'الطاقة المصاحبة', 'جميع ما سبق'], ans: 3, expl: 'تشمل الكيمياء التركيب والخواص والطاقة.', wrongMap: { "0": 'جزء من الإجابة.', "1": 'جزء من الإجابة.', "2": 'جزء من الإجابة.' } }
+  ],
+  '1-2-2': [
+    { q: 'أي مما يلي مثال على الحالة الصلبة؟', opts: ['الماء', 'الهواء', 'الصخر', 'البخار'], ans: 2, expl: 'الصخر له شكل وحجم ثابتان.', wrongMap: { "0": 'الماء سائل.', "1": 'الهواء غاز.', "3": 'البخار غاز.' } },
+    { q: 'الحالة التي ليس لها شكل ولا حجم ثابت هي:', opts: ['الصلبة', 'السائلة', 'الغازية', 'البلازما فقط'], ans: 2, expl: 'الغاز يتخذ شكل وحجم الوعاء.', wrongMap: { "0": 'الصلب له شكل وحجم ثابت.', "1": 'السائل له حجم ثابت.', "3": 'البلازما حالة رابعة نادرة.' } },
+    { q: 'أي مما يلي يمثل البلازما؟', opts: ['البرق', 'الجليد', 'الماء', 'الخشب'], ans: 0, expl: 'البرق غاز متأين (بلازما).', wrongMap: { "1": 'الجليد صلب.', "2": 'الماء سائل.', "3": 'الخشب صلب.' } }
+  ],
+  '1-2-3': [
+    { q: 'ما هو النموذج؟', opts: ['نسخة حقيقية من الشيء', 'تمثيل لشيء ما لشرحه', 'تخمين عشوائي', 'قانون علمي'], ans: 1, expl: 'النموذج تمثيل مرئي أو لفظي أو رياضي.', wrongMap: { "0": 'ليس نسخة حقيقية بل تمثيل.', "2": 'ليس عشوائيًا بل علمي.', "3": 'القانون وصف وليس نموذجًا.' } },
+    { q: 'لماذا نستخدم النماذج؟', opts: ['لتزيين المختبر', 'لشرح ما لا يمكن رؤيته', 'للتجارب فقط', 'لحفظ الجدول الدوري'], ans: 1, expl: 'النماذج تفسر الظواهر غير المرئية.', wrongMap: { "0": 'ليس للتزيين.', "2": 'تستخدم في الشرح أيضًا.', "3": 'الجدول ليس نموذجًا.' } },
+    { q: 'النموذج يمكن أن يكون:', opts: ['مرئيًا', 'لفظيًا', 'رياضيًا', 'جميع ما سبق'], ans: 3, expl: 'كل هذه أنواع من النماذج.', wrongMap: { "0": 'جزء من الإجابة.', "1": 'جزء من الإجابة.', "2": 'جزء من الإجابة.' } }
+  ],
+  '1-2-4': [
+    { q: 'كرات الصلصال وأعواد الأسنان تستخدم كـ:', opts: ['نموذج مادي', 'نموذج حاسوبي', 'نموذج رياضي', 'قانون علمي'], ans: 0, expl: 'هي أشياء ملموسة تمثل الذرات.', wrongMap: { "1": 'الحاسوبي برامج.', "2": 'الرياضي معادلات.', "3": 'ليست قانونًا.' } },
+    { q: 'برامج المحاكاة ثلاثية الأبعاد هي أمثلة على:', opts: ['نماذج مادية', 'نماذج حاسوبية', 'نماذج رياضية', 'تجارب حقيقية'], ans: 1, expl: 'تعتمد على الكمبيوتر.', wrongMap: { "0": 'المادية ملموسة.', "2": 'الرياضية معادلات.', "3": 'ليست تجارب فعلية.' } },
+    { q: 'المعادلات التي تصف سرعة التفاعل هي:', opts: ['نماذج مادية', 'نماذج حاسوبية', 'نماذج رياضية', 'أدوات مختبرية'], ans: 2, expl: 'المعادلات الرياضية تمثل العلاقات.', wrongMap: { "0": 'ليست ملموسة.', "1": 'ليست برامج.', "3": 'ليست أدوات.' } }
+  ],
+  '1-2-5': [
+    { q: 'المستوى المجهري للمادة يصف:', opts: ['ما نراه بالعين', 'ترتيب الذرات والجزيئات', 'الوان المواد', 'حجم الوعاء'], ans: 1, expl: 'المجهري هو مستوى الذرات.', wrongMap: { "0": 'العين ترى المستوى الجهري.', "2": 'اللون خاصية جهرية.', "3": 'الحجم جهري.' } },
+    { q: 'لماذا يهتم الكيميائيون بالمستوى المجهري؟', opts: ['لأنه مرئي', 'لأنه يفسر سلوك المادة', 'لأنه أسهل', 'لأنه غير مهم'], ans: 1, expl: 'سلوك الذرات يحدد خواص المادة.', wrongMap: { "0": 'المجهري غير مرئي.', "2": 'قد يكون أصعب.', "3": 'مهم جدًا.' } },
+    { q: 'خواص المادة تعتمد على:', opts: ['ترتيب وسلوك الذرات', 'لون الوعاء', 'درجة حرارة الغرفة فقط', 'حجم المختبر'], ans: 0, expl: 'الترتيب الذري يحدد الخواص.', wrongMap: { "1": 'الوعاء لا يحدد الخواص.', "2": 'الحرارة تؤثر لكنها ليست الأساس.', "3": 'المختبر لا يؤثر.' } }
+  ],
+  '1-2-6': [
+    { q: 'ذوبان السكر في الماء هو تغير:', opts: ['مجهري غير مرئي', 'جهري مرئي', 'نووي', 'لا شيء'], ans: 0, expl: 'ذوبان السكر يحدث على المستوى المجهري.', wrongMap: { "1": 'الجهر هو ما نراه، لكن السبب مجهري.', "2": 'ليس نوويًا.', "3": 'يحدث تغير.' } },
+    { q: 'لماذا يدرس الكيميائيون التغيرات غير المرئية؟', opts: ['لأنها تفسر التغيرات المرئية', 'لأنها أسهل', 'لأنها غير مهمة', 'لأنها لا تحتاج تجارب'], ans: 0, expl: 'المجهري يفسر الجهري.', wrongMap: { "1": 'قد تكون أصعب.', "2": 'مهمة جدًا.', "3": 'تحتاج تجارب ونماذج.' } },
+    { q: 'اختفاء السكر عند إذابته سببه:', opts: ['تلاشي المادة', 'تفتتها لجزيئات لا تُرى', 'تحولها لضوء', 'تبخرها'], ans: 1, expl: 'الجزيئات لا تزال موجودة لكنها غير مرئية.', wrongMap: { "0": 'المادة لا تتلاشى.', "2": 'لا تتحول لضوء.', "3": 'لا تتبخر.' } }
+  ],
+  '1-2-7': [
+    { q: 'أهم سبب لاستخدام النماذج هو:', opts: ['تبسيط المفاهيم المعقدة', 'تعقيد الشرح', 'إخفاء الحقيقة', 'زيادة الوقت'], ans: 0, expl: 'النماذج تبسط وتفسر.', wrongMap: { "1": 'العكس.', "2": 'توضح الحقيقة.', "3": 'توفر الوقت.' } },
+    { q: 'الذرة لا تُرى، لذلك نستخدم:', opts: ['نموذجًا لتمثيلها', 'مجهرًا عاديًا', 'عدسة مكبرة', 'نتركها'], ans: 0, expl: 'النماذج تمثل ما لا يُرى.', wrongMap: { "1": 'المجهر العادي لا يرى الذرة.', "2": 'العدسة لا تكفي.', "3": 'لا يمكن تركها.' } },
+    { q: 'النماذج تساعد العلماء في:', opts: ['التنبؤ بسلوك المواد', 'صنع الطعام', 'قياس الوزن فقط', 'الرسم فقط'], ans: 0, expl: 'النماذج تتيح التنبؤ.', wrongMap: { "1": 'لا علاقة لها بالطعام.', "2": 'أوسع من قياس الوزن.', "3": 'أكثر من الرسم.' } }
+  ],
+  '1-2-8': [
+    { q: 'الكتلة هي:', opts: ['كمية المادة في الجسم', 'قوة الجذب', 'الحجم', 'الوزن'], ans: 0, expl: 'الكتلة كمية المادة.', wrongMap: { "1": 'هذا تعريف الوزن.', "2": 'الحجم مساحة.', "3": 'الوزن قوة.' } },
+    { q: 'هل تتغير الكتلة بتغير المكان؟', opts: ['نعم', 'لا، ثابتة', 'أحيانًا', 'فقط في الفضاء'], ans: 1, expl: 'الكتلة ثابتة في أي مكان.', wrongMap: { "0": 'الوزن هو الذي يتغير.', "2": 'ثابتة دائمًا.', "3": 'ثابتة حتى في الفضاء.' } },
+    { q: 'وحدة قياس الكتلة هي:', opts: ['نيوتن', 'كيلوجرام', 'متر', 'لتر'], ans: 1, expl: 'الكيلوجرام وحدة الكتلة.', wrongMap: { "0": 'النيوتن للوزن.', "2": 'المتر للطول.', "3": 'اللتر للحجم.' } }
+  ],
+  '1-2-9': [
+    { q: 'الوزن هو:', opts: ['كمية المادة', 'قوة جذب الأرض للجسم', 'الحجم', 'الكثافة'], ans: 1, expl: 'الوزن قوة جذب.', wrongMap: { "0": 'هذا تعريف الكتلة.', "2": 'الحجم مساحة.', "3": 'الكثافة كتلة/حجم.' } },
+    { q: 'يتغير الوزن بتغير:', opts: ['الحجم', 'الجاذبية', 'اللون', 'الكتلة'], ans: 1, expl: 'الوزن يعتمد على الجاذبية.', wrongMap: { "0": 'الحجم لا يؤثر مباشرة.', "2": 'اللون لا يؤثر.', "3": 'الكتلة ثابتة.' } },
+    { q: 'وحدة قياس الوزن هي:', opts: ['كيلوجرام', 'نيوتن', 'مول', 'لتر'], ans: 1, expl: 'النيوتن وحدة القوة (الوزن).', wrongMap: { "0": 'الكيلوجرام للكتلة.', "2": 'المول لكمية المادة.', "3": 'اللتر للحجم.' } }
+  ],
+  '1-2-10': [
+    { q: 'أيهما ثابت لا يتغير؟', opts: ['الكتلة', 'الوزن', 'كلاهما', 'لا شيء'], ans: 0, expl: 'الكتلة ثابتة.', wrongMap: { "1": 'الوزن متغير.', "2": 'الوزن متغير.', "3": 'الكتلة ثابتة.' } },
+    { q: 'يقاس الوزن بـ:', opts: ['ميزان ذي كفتين', 'ميزان نابضي', 'مسطرة', 'مخبار مدرج'], ans: 1, expl: 'الميزان النابضي يقيس الوزن.', wrongMap: { "0": 'ذو الكفتين يقيس الكتلة.', "2": 'المسطرة للطول.', "3": 'المخبار للحجم.' } },
+    { q: 'الفرق بين الكتلة والوزن أن الكتلة:', opts: ['تتغير بالجاذبية', 'ثابتة والوزن متغير', 'تقاس بالنيوتن', 'تعتمد على المكان'], ans: 1, expl: 'الكتلة ثابتة، الوزن متغير.', wrongMap: { "0": 'الوزن هو المتغير.', "2": 'الكتلة بالكيلوجرام.', "3": 'الوزن يعتمد على المكان.' } }
+  ],
+  '1-2-11': [
+    { q: 'لماذا يقل وزن الجسم على القمر؟', opts: ['لأن كتلته تقل', 'لأن جاذبية القمر أقل', 'لأن الهواء أقل', 'لأن الحرارة أعلى'], ans: 1, expl: 'جاذبية القمر تعادل سدس جاذبية الأرض.', wrongMap: { "0": 'الكتلة ثابتة.', "2": 'الهواء لا يؤثر.', "3": 'الحرارة لا تؤثر.' } },
+    { q: 'وزنك على القمر مقارنة بالأرض:', opts: ['نفس الوزن', 'أكبر', 'أقل (سدس)', 'معدوم'], ans: 2, expl: 'جاذبية القمر 1/6، فالوزن 1/6.', wrongMap: { "0": 'الوزن يتغير.', "1": 'أقل لا أكبر.', "3": 'ليس معدومًا.' } },
+    { q: 'سبب اختلاف الوزن في المواضع المختلفة هو:', opts: ['اختلاف الكتلة', 'اختلاف الجاذبية', 'اختلاف الحجم', 'اختلاف اللون'], ans: 1, expl: 'الجاذبية المحلية تحدد الوزن.', wrongMap: { "0": 'الكتلة ثابتة.', "2": 'الحجم ثابت.', "3": 'اللون لا يؤثر.' } }
+  ],
+  '1-2-12': [
+    { q: 'يفضل العلماء الكتلة لأنها:', opts: ['أسهل في القياس', 'ثابتة لا تتأثر بالجاذبية', 'أكبر من الوزن', 'تقاس بالنيوتن'], ans: 1, expl: 'الثبات يضمن دقة القياسات.', wrongMap: { "0": 'الوزن قد يكون أسهل أحيانًا.', "2": 'الحجم لا يحدد التفضيل.', "3": 'الكتلة تقاس بالكيلوجرام.' } },
+    { q: 'لو قاس عالم الوزن على الأرض ثم القمر سيجد:', opts: ['نفس النتيجة', 'نتائج مختلفة', 'لا يمكن القياس', 'الوزن يختفي'], ans: 1, expl: 'الوزن يتغير.', wrongMap: { "0": 'الوزن يتغير.', "2": 'يمكن قياسه.', "3": 'لا يختفي.' } },
+    { q: 'قياس الكتلة يضمن:', opts: ['دقة وموحدة للنتائج', 'اختلاف النتائج', 'صعوبة التجارب', 'ضياع الوقت'], ans: 0, expl: 'الكتلة تعطي نتائج موحدة.', wrongMap: { "1": 'العكس.', "2": 'لا يصعب التجارب.', "3": 'لا يضيع الوقت.' } }
+  ],
+  '1-2-13': [
+    { q: 'أي مما يلي ليس من فروع الكيمياء الخمسة؟', opts: ['العضوية', 'غير العضوية', 'التحليلية', 'الفلكية'], ans: 3, expl: 'الفلكية ليست فرعًا من الكيمياء.', wrongMap: { "0": 'العضوية فرع.', "1": 'غير العضوية فرع.', "2": 'التحليلية فرع.' } },
+    { q: 'فرع الكيمياء الذي يدرس مركبات الكربون هو:', opts: ['غير العضوية', 'العضوية', 'الفيزيائية', 'التحليلية'], ans: 1, expl: 'العضوية تدرس الكربون.', wrongMap: { "0": 'غير العضوية تستثني الكربون غالبًا.', "2": 'الفيزيائية للطاقة.', "3": 'التحليلية للتحليل.' } },
+    { q: 'الفرع الذي يدرس التفاعلات في الكائنات الحية هو:', opts: ['الحيوية', 'العضوية', 'الفيزيائية', 'التحليلية'], ans: 0, expl: 'الحيوية تدرس كيمياء الحياة.', wrongMap: { "1": 'العضوية للكربون عموماً.', "2": 'الفيزيائية للطاقة.', "3": 'التحليلية للتحليل.' } }
+  ],
+  '1-2-14': [
+    { q: 'الكيمياء التحليلية تهتم بـ:', opts: ['تحليل تركيب المواد', 'صنع البلاستيك', 'حرارة التفاعل', 'الكائنات الحية'], ans: 0, expl: 'التحليلية تحلل التركيب.', wrongMap: { "1": 'البلاستيك للعضوية.', "2": 'الحرارة للفيزيائية.', "3": 'الكائنات للحيوية.' } },
+    { q: 'الكيمياء الفيزيائية تدرس:', opts: ['الطاقة والتغيرات', 'الكربون', 'المعادن', 'الإنزيمات'], ans: 0, expl: 'الفيزيائية تدرس الطاقة.', wrongMap: { "1": 'الكربون للعضوية.', "2": 'المعادن لغير العضوية.', "3": 'الإنزيمات للحيوية.' } },
+    { q: 'العناصر التي لا تحتوي على الكربون تدرس في:', opts: ['العضوية', 'غير العضوية', 'الحيوية', 'التحليلية'], ans: 1, expl: 'غير العضوية تستثني الكربون.', wrongMap: { "0": 'العضوية للكربون.', "2": 'الحيوية للكائنات.', "3": 'التحليلية للتحليل.' } }
+  ],
+  '1-2-15': [
+    { q: 'صناعة البلاستيك مثال على تطبيقات:', opts: ['الكيمياء العضوية', 'الكيمياء التحليلية', 'الكيمياء الحيوية', 'الكيمياء غير العضوية'], ans: 0, expl: 'البلاستيك مركب كربوني (عضوي).', wrongMap: { "1": 'التحليلية للفحص.', "2": 'الحيوية للكائنات.', "3": 'غير العضوية للمعادن.' } },
+    { q: 'فحص جودة المياه للتأكد من صلاحيتها مثال على:', opts: ['العضوية', 'التحليلية', 'الفيزيائية', 'الحيوية'], ans: 1, expl: 'التحليلية تفحص التركيب.', wrongMap: { "0": 'العضوية للكربون.', "2": 'الفيزيائية للطاقة.', "3": 'الحيوية للكائنات.' } },
+    { q: 'تطوير اللقاحات والأدوية يرتبط بـ:', opts: ['الكيمياء الحيوية', 'الكيمياء الفيزيائية', 'الكيمياء التحليلية', 'غير العضوية'], ans: 0, expl: 'الأدوية والكائنات = حيوية.', wrongMap: { "1": 'الفيزيائية للطاقة.', "2": 'التحليلية للفحص.', "3": 'غير العضوية للمعادن.' } }
+  ],
+  '1-2-16': [
+    { q: 'لماذا توجد فروع متعددة للكيمياء؟', opts: ['لاتساع مجال المادة وتنوعها', 'لأنها صعبة', 'لتضييع الوقت', 'لأن العلماء مختلفون'], ans: 0, expl: 'اتساع المادة أدى للتخصص.', wrongMap: { "1": 'الصعوبة ليست السبب.', "2": 'لا يضيعون الوقت.', "3": 'الاختلاف ليس السبب الجوهري.' } },
+    { q: 'التخصص في الكيمياء يساعد على:', opts: ['تعميق الفهم', 'تشتيت العلماء', 'تقليل المعرفة', 'إخفاء المعلومات'], ans: 0, expl: 'التخصص يعمق الفهم.', wrongMap: { "1": 'العكس.', "2": 'يزيد المعرفة.', "3": 'يوضح المعلومات.' } },
+    { q: 'تعدد الفروع يلبي احتياجات:', opts: ['الصناعة والطب والزراعة', 'الرياضة فقط', 'الفنون فقط', 'اللغة فقط'], ans: 0, expl: 'تخدم الفروع قطاعات متعددة.', wrongMap: { "1": 'الرياضة ليست الوحيدة.', "2": 'الفنون ليست الوحيدة.', "3": 'اللغة ليست الوحيدة.' } }
+  ]
+};
+
+const Store = (() => {
+  let backend = null, db = null;
+  const mem = { student: [], progress: [], attempts: [], certificates: [] };
+  const DB_NAME = 'chem1-shared';
+  function tryIDB() {
+    return new Promise((resolve) => {
+      let req;
+      try { req = indexedDB.open(DB_NAME, 1); } catch (e) { resolve(false); return; }
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains('student')) d.createObjectStore('student', { keyPath: 'id' });
+        if (!d.objectStoreNames.contains('progress')) d.createObjectStore('progress', { keyPath: 'objectiveId' });
+        if (!d.objectStoreNames.contains('attempts')) d.createObjectStore('attempts', { keyPath: 'id', autoIncrement: true });
+        if (!d.objectStoreNames.contains('certificates')) d.createObjectStore('certificates', { keyPath: 'id' });
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(true); };
+      req.onerror = () => resolve(false);
+      req.onblocked = () => resolve(false);
+    });
+  }
+  function tryLS() { try { localStorage.setItem('__ct__', '1'); localStorage.removeItem('__ct__'); return true; } catch (e) { return false; } }
+  function lsAll(s) { try { return JSON.parse(localStorage.getItem(DB_NAME + ':' + s) || '[]'); } catch (e) { return []; } }
+  function lsSave(s, a) { try { localStorage.setItem(DB_NAME + ':' + s, JSON.stringify(a)); } catch (e) {} }
+  return {
+    get backend() { return backend; },
+    open: async function() {
+      if (await tryIDB()) { backend = 'idb'; return; }
+      if (tryLS()) { backend = 'ls'; return; }
+      backend = 'mem';
+    },
+    getAll: async function(s) {
+      if (backend === 'idb') return new Promise((res, rej) => { const tx = db.transaction(s, 'readonly'); const r = tx.objectStore(s).getAll(); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+      if (backend === 'ls') return lsAll(s);
+      return mem[s].slice();
+    },
+    put: async function(s, v) {
+      if (backend === 'idb') return new Promise((res, rej) => { const tx = db.transaction(s, 'readwrite'); const r = tx.objectStore(s).put(v); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+      const kf = s === 'progress' ? 'objectiveId' : 'id';
+      if (backend === 'ls') {
+        const a = lsAll(s);
+        if (s === 'attempts') { v.id = Date.now() + Math.random(); a.push(v); }
+        else { const i = a.findIndex(x => x[kf] === v[kf]); if (i >= 0) a[i] = v; else a.push(v); }
+        lsSave(s, a); return;
+      }
+      if (s === 'attempts') { v.id = Date.now() + Math.random(); mem[s].push(v); }
+      else { const i = mem[s].findIndex(x => x[kf] === v[kf]); if (i >= 0) mem[s][i] = v; else mem[s].push(v); }
+    },
+    clear: async function(s) {
+      if (backend === 'idb') return new Promise((res, rej) => { const tx = db.transaction(s, 'readwrite'); const r = tx.objectStore(s).clear(); r.onsuccess = () => res(); r.onerror = () => rej(r.error); });
+      if (backend === 'ls') { lsSave(s, []); return; }
+      mem[s] = [];
+    }
+  };
+})();
+
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function shuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function todayHijri() { try { return new Date().toLocaleDateString('ar-SA-u-ca-islamic'); } catch (e) { return new Date().toLocaleDateString('ar-SA'); } }
+function todayGreg() { return new Date().toLocaleDateString('ar-SA-u-ca-gregory'); }
+function hashStr(s) { let h = 0; for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0; return Math.abs(h).toString(36).toUpperCase().slice(0, 8); }
+function certCode(type, subject) {
+  const seed = String(state.student.id) + type + subject + Date.now() + Math.random();
+  return 'K1-' + type + '-' + subject + '-' + hashStr(seed);
+}
+function isReflectionValid(text, objectiveId) {
+  const trimmed = text.trim();
+  if (trimmed.length < 20) return { ok: false, msg: 'يجب أن تكتب 20 حرفًا على الأقل.' };
+  const words = trimmed.split(/\s+/).filter(w => w.length > 0);
+  if (words.length < 3) return { ok: false, msg: 'يجب أن تكتب 3 كلمات على الأقل.' };
+  const chars = trimmed.replace(/\s+/g, '');
+  const counts = {}; let max = 0;
+  for (const c of chars) { counts[c] = (counts[c] || 0) + 1; if (counts[c] > max) max = counts[c]; }
+  if (max / chars.length > 0.5) return { ok: false, msg: 'اكتب شرحًا حقيقيًا (لا تكرر حرفًا واحدًا).' };
+  if (objectiveId && REFLECTION_KEYWORDS[objectiveId]) {
+    const kws = REFLECTION_KEYWORDS[objectiveId];
+    let found = false;
+    for (let i = 0; i < kws.length; i++) { if (trimmed.indexOf(kws[i]) !== -1) { found = true; break; } }
+    if (!found) return { ok: false, msg: 'اذكر مفهومًا واحدًا على الأقل من الدرس (مثل: ' + kws.slice(0, 3).join('، ') + ').' };
+  }
+  return { ok: true };
+}
+function storageWarning() {
+  if (Store.backend === 'mem') return '<div class="storage-warn">⚠️ التخزين غير متاح (file://). شغّل خادمًا محليًا.</div>';
+  if (Store.backend === 'ls') return '<div class="storage-warn">ℹ️ التخزين عبر localStorage (بديل).</div>';
+  return '';
+}
+
+async function getStudent() { const a = await Store.getAll('student'); return a[0] || null; }
+async function saveStudent(s) { await Store.put('student', s); }
+
+function prereqsSatisfied(objId, progress) {
+  const obj = OBJECTIVES.find(o => o.id === objId);
+  if (!obj) return false;
+  for (const p of obj.prereqs) {
+    if (EXTERNAL_PREREQS.indexOf(p) !== -1) continue;
+    const pr = progress.find(x => x.objectiveId === p);
+    if (!pr || pr.state !== 'MASTERED') return false;
+  }
+  return true;
+}
+
+async function initializeProgress() {
+  const existing = await Store.getAll('progress');
+  const existingForLesson = existing.filter(p => (p.lessonId === LESSON_ID) || (p.objectiveId && p.objectiveId.indexOf(LESSON_ID + '-') === 0));
+  if (existingForLesson.length === OBJECTIVES.length) return existing;
+  
+  for (const o of OBJECTIVES) {
+    const existingObj = existing.find(x => x.objectiveId === o.id);
+    if (!existingObj) {
+      const r = {
+        objectiveId: o.id, lessonId: LESSON_ID, chapterId: CHAPTER_ID,
+        state: prereqsSatisfied(o.id, existing) ? 'AVAILABLE' : 'LOCKED',
+        masteryScore: 0, remediationRounds: 0, lastAttemptAt: null, masteredAt: null
+      };
+      await Store.put('progress', r);
+    }
+  }
+  return await Store.getAll('progress');
+}
+
+async function updateProgress(objId, patch) {
+  const p = state.progress.find(x => x.objectiveId === objId);
+  Object.assign(p, patch);
+  await Store.put('progress', p);
+}
+function getProgress(objId) { return state.progress.find(x => x.objectiveId === objId); }
+async function unlockDependents() {
+  for (const o of OBJECTIVES) {
+    const p = getProgress(o.id);
+    if (p.state === 'LOCKED' && prereqsSatisfied(o.id, state.progress)) {
+      p.state = 'AVAILABLE';
+      await Store.put('progress', p);
+    }
+  }
+}
+function allMastered() { return OBJECTIVES.every(o => getProgress(o.id).state === 'MASTERED'); }
+function totalMastered() { return OBJECTIVES.filter(o => getProgress(o.id).state === 'MASTERED').length; }
+
+let state = { student: null, progress: [], currentObjective: null };
+const view = document.getElementById('view');
+
+function resetView() {
+  view.innerHTML = '';
+  const warn = storageWarning();
+  if (warn) view.insertAdjacentHTML('beforeend', warn);
+}
+
+/* التقسيم المنطقي للمجموعات */
+const GROUPS = [
+  { title: 'المجموعة الأولى: مفاهيم الكيمياء والنماذج', start: 0, end: 7 },
+  { title: 'المجموعة الثانية: الكتلة والوزن', start: 7, end: 12 },
+  { title: 'المجموعة الثالثة: فروع الكيمياء', start: 12, end: 16 }
+];
+
+function renderLessonHome() {
+  resetView();
+  const lessonProgress = state.progress.filter(p => (p.lessonId === LESSON_ID) || (p.objectiveId && p.objectiveId.indexOf(LESSON_ID + '-') === 0));
+  const mastered = lessonProgress.filter(p => p.state === 'MASTERED').length;
+  const total = OBJECTIVES.length;
+  const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
+  
+  view.insertAdjacentHTML('beforeend', `
+    <div class="breadcrumb">
+      <div><a href="index.html">🏠 الرئيسية</a> · <span>${LESSON_CODE} · الفصل الأول: مقدمة في علم الكيمياء</span></div>
+      <a href="index.html" class="btn outline" style="font-size:.8rem;padding:.3rem .6rem;">عودة للمنهج</a>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem">
+        <div><b>${LESSON_CODE} · ${LESSON_TITLE}</b></div>
+        <div class="muted">${mastered} / ${total} هدفًا متقنًا (${pct}%)</div>
+      </div>
+      <div class="progress-bar"><div style="width:${pct}%"></div></div>
+    </div>
+    <div id="obj-list"></div>
+    <div id="cert-area" style="margin-top:1.5rem"></div>`);
+
+  const list = document.getElementById('obj-list');
+  
+  GROUPS.forEach(group => {
+    const groupTitle = document.createElement('div');
+    groupTitle.className = 'group-title';
+    groupTitle.textContent = group.title;
+    list.appendChild(groupTitle);
+
+    OBJECTIVES.slice(group.start, group.end).forEach(o => {
+      const p = getProgress(o.id);
+      if (!p) return;
+      const labels = { LOCKED: 'مقفل 🔒', AVAILABLE: 'متاح', MASTERED: 'متقن ✓', DIAGNOSTIC: 'قيد التعلّم', INSTRUCTION: 'قيد التعلّم', CHECK: 'قيد التعلّم', REMEDIATION: 'يحتاج معالجة', RECHECK: 'قيد التعلّم' };
+      const cls = p.state === 'LOCKED' ? 'locked' : (p.state === 'MASTERED' ? 'mastered' : '');
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'objective-row ' + cls;
+      row.innerHTML = '<div class="obj-text"><div><span class="obj-id">' + o.id + '</span> <span class="state-badge state-' + p.state + '">' + labels[p.state] + '</span></div><div style="margin-top:.35rem">' + escapeHtml(o.text) + '</div></div><div style="font-size:.85rem;color:var(--text-sec);white-space:nowrap">' + o.bloom + '</div>';
+      row.addEventListener('click', () => {
+        if (p.state === 'LOCKED') { alert('يتطلب إتقان الهدف السابق أولًا.'); return; }
+        state.currentObjective = o.id;
+        renderObjective();
+      });
+      list.appendChild(row);
+    });
+  });
+
+  const certArea = document.getElementById('cert-area');
+  if (mastered === total) {
+    certArea.innerHTML = '<button class="primary" id="btn-cert" style="width:100%">🎓 استخرج شهادة إتمام الدرس</button>';
+    document.getElementById('btn-cert').addEventListener('click', renderCertificate);
+  } else {
+    certArea.innerHTML = '<p class="muted" style="text-align:center">أكمل الأهداف الـ16 لاستخراج شهادة إتمام الدرس (' + mastered + '/' + total + ').</p>';
+  }
+}
+
+async function renderObjective() {
+  const obj = OBJECTIVES.find(o => o.id === state.currentObjective);
+  const p = getProgress(obj.id);
+  if (p.state === 'AVAILABLE') { await updateProgress(obj.id, { state: 'DIAGNOSTIC' }); runDiagnostic(obj); }
+  else if (p.state === 'DIAGNOSTIC') runDiagnostic(obj);
+  else if (p.state === 'INSTRUCTION') showInstruction(obj);
+  else if (p.state === 'CHECK') runCheck(obj, 'check');
+  else if (p.state === 'REMEDIATION') showRemediation(obj);
+  else if (p.state === 'RECHECK') runCheck(obj, 'recheck');
+  else if (p.state === 'MASTERED') showMastered(obj);
+  else renderLessonHome();
+}
+
+function buildFeedback(item, chosenIdx) {
+  if (chosenIdx === item.ans) {
+    return '<div class="feedback correct">✓ إجابة صحيحة<br>' + escapeHtml(item.expl) + '</div>';
+  }
+  let hint = (item.wrongMap && item.wrongMap[String(chosenIdx)]) ? item.wrongMap[String(chosenIdx)] : '';
+  let html = '<div class="feedback wrong">✗ إجابة خاطئة<br>الإجابة الصحيحة: <b>' + escapeHtml(item.opts[item.ans]) + '</b>';
+  if (hint) html += '<br><span style="color:var(--text-sec)">' + escapeHtml(hint) + '</span>';
+  else html += '<br>' + escapeHtml(item.expl);
+  html += '</div>';
+  return html;
+}
+
+function runDiagnostic(obj) {
+  const pool = shuffle(ITEMS[obj.id]).slice(0, 2);
+  let idx = 0, answered = false;
+  const objHeader = '<h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: تشخيص سريع (' + pool.length + ' أسئلة — لا تُحتسب)</p>';
+  function showQ() {
+    answered = false;
+    if (idx >= pool.length) { updateProgress(obj.id, { state: 'INSTRUCTION' }).then(() => showInstruction(obj)); return; }
+    resetView();
+    const item = pool[idx];
+    view.insertAdjacentHTML('beforeend', '<div class="card">' + objHeader + '<div class="muted" style="margin-bottom:.5rem">السؤال ' + (idx + 1) + ' من ' + pool.length + '</div><div class="question">' + escapeHtml(item.q) + '</div><div class="options" id="opts"></div><button type="button" class="skip-btn" id="skip-btn">لا أعرف — أرني الإجابة</button><div id="fb" aria-live="polite"></div><div class="row"><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+    const optsBox = document.getElementById('opts');
+    item.opts.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'option';
+      b.textContent = o;
+      b.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        const allOpts = optsBox.querySelectorAll('.option');
+        for (let k = 0; k < allOpts.length; k++) allOpts[k].disabled = true;
+        document.getElementById('skip-btn').disabled = true;
+        b.classList.add(i === item.ans ? 'correct' : 'wrong');
+        allOpts[item.ans].classList.add('correct');
+        document.getElementById('fb').innerHTML = buildFeedback(item, i);
+        setTimeout(function() { idx++; showQ(); }, 1600);
+      });
+      optsBox.appendChild(b);
+    });
+    document.getElementById('skip-btn').addEventListener('click', function() {
+      if (answered) return;
+      answered = true;
+      const allOpts = optsBox.querySelectorAll('.option');
+      for (let k = 0; k < allOpts.length; k++) allOpts[k].disabled = true;
+      document.getElementById('skip-btn').disabled = true;
+      allOpts[item.ans].classList.add('correct');
+      document.getElementById('fb').innerHTML = '<div class="feedback neutral">الإجابة الصحيحة: <b>' + escapeHtml(item.opts[item.ans]) + '</b><br>' + escapeHtml(item.expl) + '</div>';
+      setTimeout(function() { idx++; showQ(); }, 2200);
+    });
+  }
+  showQ();
+}
+
+function showInstruction(obj) {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><div class="breadcrumb"><button class="outline" onclick="renderLessonHome()">← العودة للقائمة</button></div><h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: تعليم · المستوى البلومي: ' + obj.bloom + '</p><div class="prose">' + obj.instruction.explanation + '</div><hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0"><h3>سؤال تأملي (إلزامي)</h3><p class="muted">' + escapeHtml(obj.instruction.prompt) + '</p><textarea id="reflection" class="textarea" placeholder="اكتب شرحك هنا (3 كلمات على الأقل، 20 حرفًا، مع ذكر مفهوم من الدرس)..."></textarea><p class="muted" id="refl-status" aria-live="polite">لم تكتب بعد.</p><div class="row"><button id="btn-check" class="primary" disabled>أفهم، اختبرني</button><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+  const ta = document.getElementById('reflection');
+  const btn = document.getElementById('btn-check');
+  const status = document.getElementById('refl-status');
+  ta.addEventListener('input', function() {
+    const v = isReflectionValid(ta.value, obj.id);
+    btn.disabled = !v.ok;
+    status.textContent = v.ok ? '✓ جاهز' : (v.msg || '');
+  });
+  btn.addEventListener('click', async function() {
+    await Store.put('attempts', { objectiveId: obj.id, itemId: 'reflection', response: ta.value, correct: true, type: 'self_explanation', createdAt: Date.now() });
+    await updateProgress(obj.id, { state: 'CHECK' });
+    runCheck(obj, 'check');
+  });
+}
+
+function runCheck(obj, mode) {
+  const pool = shuffle(ITEMS[obj.id]);
+  let idx = 0, correct = 0, answered = false;
+  const objHeader = '<h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: ' + (mode === 'check' ? 'تحقق' : 'إعادة تحقق') + ' · ' + pool.length + ' أسئلة · عتبة الإتقان ' + Math.round(THRESHOLD*100) + '%</p>';
+  async function showQ() {
+    answered = false;
+    if (idx >= pool.length) {
+      const score = correct / pool.length;
+      const p = getProgress(obj.id);
+      const rounds = p.remediationRounds || 0;
+      if (score >= THRESHOLD) {
+        await updateProgress(obj.id, { state: 'MASTERED', masteryScore: score, masteredAt: Date.now() });
+        await unlockDependents();
+        showMastered(obj);
+      } else {
+        const newRounds = mode === 'recheck' ? rounds + 1 : rounds;
+        if (newRounds >= 3) {
+          await updateProgress(obj.id, { state: 'REMEDIATION', masteryScore: score, remediationRounds: newRounds });
+          showStuck(obj);
+        } else {
+          await updateProgress(obj.id, { state: 'REMEDIATION', masteryScore: score, remediationRounds: newRounds });
+          showRemediation(obj);
+        }
+      }
+      return;
+    }
+    resetView();
+    const item = pool[idx];
+    view.insertAdjacentHTML('beforeend', '<div class="card"><div class="breadcrumb"><button class="outline" onclick="if(confirm(\'هل تريد الخروج من الاختبار والعودة للقائمة؟\')) renderLessonHome()">← العودة للقائمة</button></div>' + objHeader + '<div class="muted" style="margin-bottom:.5rem">السؤال ' + (idx + 1) + ' من ' + pool.length + '</div><div class="question">' + escapeHtml(item.q) + '</div><div class="options" id="opts"></div><div id="fb" aria-live="polite"></div></div>');
+    const optsBox = document.getElementById('opts');
+    item.opts.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'option';
+      b.textContent = o;
+      b.addEventListener('click', async function() {
+        if (answered) return;
+        answered = true;
+        const allOpts = optsBox.querySelectorAll('.option');
+        for (let k = 0; k < allOpts.length; k++) allOpts[k].disabled = true;
+        b.classList.add(i === item.ans ? 'correct' : 'wrong');
+        allOpts[item.ans].classList.add('correct');
+        if (i === item.ans) correct++;
+        await Store.put('attempts', { objectiveId: obj.id, itemId: item.q.slice(0, 40), response: o, correct: i === item.ans, type: mode, createdAt: Date.now() });
+        document.getElementById('fb').innerHTML = buildFeedback(item, i);
+        setTimeout(function() { idx++; showQ(); }, 1600);
+      });
+      optsBox.appendChild(b);
+    });
+  }
+  showQ();
+}
+
+function showRemediation(obj) {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><div class="breadcrumb"><button class="outline" onclick="renderLessonHome()">← العودة للقائمة</button></div><h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: معالجة — محتوى بديل لتقوية الفهم</p><div class="prose"><h3>تشبيه</h3><p>' + escapeHtml(obj.remediation.analogy) + '</p><h3>شرح بديل</h3>' + obj.remediation.explanation + '</div><div class="row" style="margin-top:1.5rem"><button id="btn-recheck" class="primary">أعد الاختبار</button><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+  document.getElementById('btn-recheck').addEventListener('click', async function() {
+    await updateProgress(obj.id, { state: 'RECHECK' });
+    runCheck(obj, 'recheck');
+  });
+}
+
+function showStuck(obj) {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><h2 style="margin-top:0">هذا الهدف يحتاج مراجعة إضافية</h2><p>حاولت ثلاث مرات. لا بأس — هذا طبيعي. يمكنك:</p><ul><li>مراجعة الشرح الأول للهدف.</li><li>تجربة المعالجة مرة أخرى بمحتوى مختلف.</li><li>المحاولة لاحقًا أو مشاركة تقريرك مع معلمك.</li></ul><div class="row"><button id="btn-instruction" class="primary">راجع الشرح الأول</button><button id="btn-retry" class="outline">جرب المعالجة مرة أخرى</button><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+  document.getElementById('btn-instruction').addEventListener('click', async function() {
+    await updateProgress(obj.id, { state: 'INSTRUCTION' });
+    showInstruction(obj);
+  });
+  document.getElementById('btn-retry').addEventListener('click', function() { showRemediation(obj); });
+}
+
+function showMastered(obj) {
+  resetView();
+  const done = totalMastered();
+  const total = OBJECTIVES.length;
+  const lessonDone = done === total;
+  let primaryBtn = '';
+  if (lessonDone) {
+    primaryBtn = '<button id="btn-cert" class="primary">🎓 استخرج شهادة إتمام الدرس</button>';
+  } else {
+    primaryBtn = '<button id="btn-list" class="primary">العودة إلى أهداف الدرس</button>';
+  }
+  view.insertAdjacentHTML('beforeend', '<div class="card" style="text-align:center"><h2 style="margin-top:0;color:var(--positive)">🎉 أتقنت هذا الهدف!</h2><p>' + escapeHtml(obj.text) + '</p><div class="progress-bar" style="margin:1.5rem 0"><div style="width:' + Math.round(done/total*100) + '%"></div></div><p class="muted">' + done + ' / ' + total + ' هدفًا متقنًا في هذا الدرس</p><div class="row" style="justify-content:center">' + primaryBtn + '<a href="index.html" class="btn outline">🏠 خريطة المنهج</a></div></div>');
+  if (lessonDone) {
+    document.getElementById('btn-cert').addEventListener('click', renderCertificate);
+  } else {
+    document.getElementById('btn-list').addEventListener('click', function() { renderLessonHome(); });
+  }
+}
+
+async function renderCertificate() {
+  resetView();
+  const existing = await Store.getAll('certificates');
+  let cert = null;
+  for (const c of existing) {
+    if (c.type === 'lesson' && c.lessonId === LESSON_ID) { cert = c; break; }
+  }
+  if (!cert) {
+    const code = certCode('L1-2', LESSON_ID);
+    cert = { id: code, type: 'lesson', lessonId: LESSON_ID, lessonCode: LESSON_CODE, studentName: state.student.name, issuedAt: Date.now() };
+    await Store.put('certificates', cert);
+  }
+  view.insertAdjacentHTML('beforeend', '<div class="certificate"><h2>شهادة إتمام درس</h2><div class="course">منصة قطابري لإتقان كيمياء 1</div><div style="margin-top:2rem">تشهد المنصة بأن الطالب</div><div class="name">' + escapeHtml(state.student.name) + '</div><div style="font-size:1.1rem">قد أتمّ بنجاح درس</div><div style="font-size:1.3rem;font-weight:600;margin:.5rem 0">' + LESSON_TITLE + ' (' + LESSON_CODE + ')</div><div class="course">بتاريخ: ' + todayHijri() + ' هـ — ' + todayGreg() + ' م</div><div class="code">رقم التحقق: ' + cert.id + '</div><div class="sig">المعلم محمد قطابري راجحي<br><span class="muted" style="font-weight:400;font-size:.85rem">مجمع العز التعليمي</span></div><div class="muted" style="margin-top:1.5rem;font-size:.8rem">هذه الشهادة صادرة من المنصة بناءً على تقدم الطالب المحفوظ على جهازه، وليست شهادة معتمدة رسميًا.</div></div><div class="row no-print" style="justify-content:center"><button id="btn-print" class="primary">🖨️ طباعة / حفظ PDF</button><a href="index.html" class="btn outline">🏠 الرئيسية</a></div>');
+  document.getElementById('btn-print').addEventListener('click', function() { window.print(); });
+}
+
+(async function() {
+  try {
+    await Store.open();
+    state.student = await getStudent();
+    if (!state.student) { renderNamePrompt(); return; }
+    await continueBoot();
+  } catch (e) {
+    view.innerHTML = '<div class="card"><h2>خطأ</h2><p>' + escapeHtml(e.message || String(e)) + '</p><a href="index.html" class="btn">🏠 الرئيسية</a></div>';
+  }
+})();
+
+function renderNamePrompt() {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><h2 style="margin-top:0">قبل أن تبدأ</h2><p>لم نجد اسمك في هذا المتصفح. اكتب اسمك:</p><input id="lesson-name" type="text" maxlength="50" placeholder="اسمك" style="width:100%;padding:.8rem;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:1rem;margin-bottom:1rem"><button id="lesson-start" class="primary" style="width:100%">ابدأ</button><div class="row" style="margin-top:1rem"><a href="index.html" class="btn outline">🏠 الصفحة الرئيسية</a></div></div>');
+  document.getElementById('lesson-start').addEventListener('click', async function() {
+    const name = document.getElementById('lesson-name').value.trim();
+    if (name.length < 2) { alert('اكتب اسمًا لا يقل عن حرفين'); return; }
+    state.student = { id: 'stu-' + Date.now(), name: name, createdAt: Date.now() };
+    await saveStudent(state.student);
+    await continueBoot();
+  });
+}
+
+async function continueBoot() {
+  await initializeProgress();
+  state.progress = await Store.getAll('progress');
+  renderLessonHome();
+}
+</script>
+</body>
+</html>
