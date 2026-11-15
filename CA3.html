@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA3 · الطرائق العلمية · منصة قطابري لإتقان كيمياء 1</title>
+<style>
+:root{--primary:#0e7c3a;--primary-dark:#0a5f2c;--positive:#198038;--error:#da1e28;--warning:#b28600;--bg:#fff;--surface:#f4f4f4;--surface-high:#e0e0e0;--text:#161616;--text-sec:#525252;--border:#e0e0e0;--radius:4px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+body{display:flex;flex-direction:column;min-height:100vh}
+header{background:var(--surface);padding:1rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.brand h1{margin:0;font-size:1.05rem;font-weight:700;color:var(--primary)}
+.brand .sub{font-size:.82rem;color:var(--text-sec);margin-top:2px}
+.header-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+main{flex:1;max-width:820px;margin:0 auto;padding:2rem 1rem;width:100%}
+footer{text-align:center;padding:1rem;color:var(--text-sec);font-size:.82rem;border-top:1px solid var(--border)}
+button,a.btn{font-family:inherit;font-size:1rem;padding:.6rem 1.2rem;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;background:var(--surface);color:var(--text);transition:.15s;text-decoration:none;display:inline-block;text-align:center}
+button:hover,a.btn:hover{background:var(--surface-high)}
+button.primary,a.btn.primary{background:var(--primary);color:#fff}
+button.primary:hover,a.btn.primary:hover{background:var(--primary-dark)}
+button.primary:disabled{background:var(--surface-high);color:var(--text-sec);cursor:not-allowed}
+button.outline{background:#fff;border:1px solid var(--border);color:var(--text)}
+button.outline:hover{background:var(--surface)}
+.fab-home{position:fixed;bottom:1.5rem;left:1.5rem;width:54px;height:54px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(14,124,58,0.45);font-size:1.5rem;display:flex;align-items:center;justify-content:center;z-index:50;padding:0;transition:transform .15s,background .15s;text-decoration:none}
+.fab-home:hover{background:var(--primary-dark);transform:scale(1.08);text-decoration:none;color:#fff}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+.breadcrumb{font-size:.85rem;color:var(--text-sec);margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
+.breadcrumb a{color:var(--primary);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.group-title{margin:1.5rem 0 .7rem;font-size:1rem;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);padding-bottom:.3rem}
+.objective-row{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:.5rem;cursor:pointer;transition:.15s;background:#fff;width:100%;font-family:inherit;font-size:inherit;text-align:right;color:var(--text)}
+.objective-row > *:not(:first-child){margin-right:1rem}
+.objective-row:hover{border-color:var(--primary)}
+.objective-row.locked{opacity:.5;cursor:not-allowed;background:var(--surface)}
+.objective-row.mastered{border-color:var(--positive);background:#edf7f0}
+.obj-text{flex:1;font-size:.95rem}
+.obj-id{font-family:monospace;font-size:.8rem;color:var(--text-sec);margin-left:.5rem}
+.state-badge{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.72rem;font-weight:600;white-space:nowrap}
+.state-AVAILABLE{background:#edf7f0;color:var(--primary)}
+.state-LOCKED{background:var(--surface-high);color:var(--text-sec)}
+.state-MASTERED{background:#edf7f0;color:var(--positive)}
+.state-DIAGNOSTIC,.state-INSTRUCTION,.state-CHECK,.state-REMEDIATION,.state-RECHECK{background:#fff3e0;color:var(--warning)}
+.question{font-size:1.08rem;font-weight:500;margin-bottom:1rem;line-height:1.5}
+.options{display:flex;flex-direction:column}
+.options > * + *{margin-top:.5rem}
+.option{padding:.85rem 1.1rem;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:.15s;font-size:.95rem;background:#fff;color:var(--text);font-family:inherit;text-align:right;width:100%;display:block}
+.option:hover:not(:disabled){border-color:var(--primary);background:#f5fbf7}
+.option.correct{border-color:var(--positive);background:#edf7f0}
+.option.wrong{border-color:var(--error);background:#fef2f2}
+.option:disabled{cursor:default;opacity:1}
+.feedback{margin-top:1rem;padding:1rem;border-radius:var(--radius);font-size:.92rem}
+.feedback.correct{background:#edf7f0;border-right:4px solid var(--positive)}
+.feedback.wrong{background:#fef2f2;border-right:4px solid var(--error)}
+.feedback.neutral{background:#edf7f0;border-right:4px solid var(--primary)}
+.progress-bar{height:8px;background:var(--surface);border-radius:4px;overflow:hidden;margin:.5rem 0}
+.progress-bar>div{height:100%;background:var(--primary);transition:width .3s}
+.textarea{width:100%;min-height:110px;padding:1rem;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:1rem;resize:vertical}
+.prose h3{margin-top:1.5rem;margin-bottom:.5rem;color:var(--primary);font-size:1.05rem}
+.prose ul,.prose ol{padding-right:1.5rem}
+.prose table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+.prose th,.prose td{padding:.5rem;border:1px solid var(--border);text-align:right}
+.prose th{background:var(--surface)}
+.certificate{background:#fff;border:8px double var(--primary);padding:3rem 2rem;text-align:center;margin:2rem 0}
+.certificate h2{color:var(--primary);font-size:1.7rem;margin-top:0}
+.certificate .name{font-size:2rem;font-weight:700;margin:1.5rem 0}
+.certificate .course{font-size:1.1rem;color:var(--text-sec)}
+.certificate .code{font-family:monospace;font-size:.85rem;color:var(--text-sec);margin-top:2rem}
+.certificate .sig{margin-top:3rem;font-weight:600;font-size:1rem}
+.muted{color:var(--text-sec);font-size:.88rem}
+.row{display:flex;flex-wrap:wrap;margin:1rem -.25rem 0}
+.row > *{margin:0 .25rem .5rem}
+.hidden{display:none}
+.skip-btn{background:#fff;color:var(--text-sec);border-style:dashed;margin-top:.5rem}
+.skip-btn:hover{background:var(--surface)}
+.storage-warn{background:#fff3e0;border:1px solid var(--warning);color:#7a4f00;padding:.7rem 1rem;border-radius:var(--radius);font-size:.85rem;margin-bottom:1rem}
+@media print{body *{visibility:hidden}.certificate,.certificate *{visibility:visible}.certificate{position:absolute;top:0;right:0;left:0;border:4px solid #000}.no-print{display:none!important}.fab-home{display:none!important}@page{margin:1.5cm}}
+@media(max-width:600px){header,main{padding:1rem}.certificate{padding:1.5rem 1rem}.certificate .name{font-size:1.4rem}.fab-home{bottom:1rem;left:1rem;width:48px;height:48px;font-size:1.3rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>منصة قطابري لإتقان كيمياء 1</h1>
+    <div class="sub">CA3 · الطرائق العلمية · المعلم محمد قطابري راجحي</div>
+  </div>
+  <div class="header-actions">
+    <a href="index.html" class="btn outline">🏠 الرئيسية</a>
+  </div>
+</header>
+<main id="view"></main>
+<footer>مجمع العز التعليمي · تعلّم حتى الإتقان — مجانًا للجميع</footer>
+<a href="index.html" class="fab-home" aria-label="الصفحة الرئيسية" title="الصفحة الرئيسية">🏠</a>
+
+<script nomodule>
+document.getElementById('view').innerHTML = '<div class="card"><h2>متصفحك قديم</h2><p>تحتاج Chrome 61+ أو Firefox 60+ أو Safari 11+ أو Edge 16+.</p></div>';
+</script>
+<script type="module">
+const LESSON_CODE = 'CA3';
+const LESSON_ID = '1-3';
+const CHAPTER_ID = 'A';
+const LESSON_TITLE = 'الطرائق العلمية';
+const THRESHOLD = 0.67;
+const EXTERNAL_PREREQS = ['PRE-1-OBSERVATION'];
+
+const REFLECTION_KEYWORDS = {
+  '1-3-1': ['طريقة علمية', 'منظمة', 'مشكلة', 'استقصاء'],
+  '1-3-2': ['ملاحظة', 'فرضية', 'تجربة', 'استنتاج'],
+  '1-3-3': ['حواس', 'ملاحظة', 'بيانات', 'أساس'],
+  '1-3-4': ['فرضية', 'تفسير', 'اختبار', 'مقترح'],
+  '1-3-5': ['تجربة', 'اختبار', 'فرضية', 'مضبوطة'],
+  '1-3-6': ['استنتاج', 'حكم', 'بيانات', 'نتائج'],
+  '1-3-7': ['نوعية', 'كمية', 'أرقام', 'ألوان'],
+  '1-3-8': ['مستقل', 'تابع', 'ثابت', 'ضابط'],
+  '1-3-9': ['حرارة', 'ضغط', 'تركيز', 'تغيير'],
+  '1-3-10': ['ضوابط', 'مقارنة', 'مرجعية', 'تأثير'],
+  '1-3-11': ['مولينا', 'محاكاة', 'صعوبة', 'تحكم'],
+  '1-3-12': ['نظرية', 'قانون', 'تفسير', 'وصف'],
+  '1-3-13': ['نظرية', 'قانون', 'وصف', 'تفسير']
+};
+
+const OBJECTIVES = [
+  { id: '1-3-1', order: 1, text: 'أن يُعرَّف الطالب مفهوم الطريقة العلمية.', bloom: 'تذكر', prereqs: ['PRE-1-OBSERVATION'], instruction: { explanation: `<b>الطريقة العلمية:</b> هي مجموعة من الخطوات المنظمة والمنهجية التي يستخدمها العلماء للإجابة عن الأسئلة وحل المشكلات.`, prompt: 'عرّف الطريقة العلمية بكلماتك.' }, remediation: { explanation: 'الطريقة العلمية هي "خريطة طريق" يتبعها العالم لضمان أن نتائجه صحيحة وغير عشوائية.', analogy: 'مثل وصفة طبخ منظمة تتبعها خطوة بخطوة للحصول على أفضل نتيجة.' } },
+  { id: '1-3-2', order: 2, text: 'أن يُحدد الطالب خطوات الطريقة العلمية.', bloom: 'تذكر', prereqs: ['1-3-1'], instruction: { explanation: `خطوات الطريقة العلمية:<ol><li>الملاحظة وطرح السؤال.</li><li>صياغة الفرضية.</li><li>اختبار الفرضية (التجربة).</li><li>تحليل البيانات.</li><li>الاستنتاج.</li></ol>`, prompt: 'اذكر خطوات الطريقة العلمية بالترتيب.' }, remediation: { explanation: 'تذكر: لاحظ، اسأل، افترض، جرب، حلل، استنتج.', analogy: 'مثل حل لغز: تراقب، تفترض حلًا، تجرب، ثم تتأكد.' } },
+  { id: '1-3-3', order: 3, text: 'أن يعلَّل الطالب أهمية مهارات الملاحظة في الكيمياء.', bloom: 'فهم', prereqs: ['1-3-2'], instruction: { explanation: `الملاحظة هي <b>أساس العلم</b>. بدونها لا يمكن جمع البيانات، ولا يمكن اكتشاف الظواهر أو طرح أسئلة علمية. تعتمد الملاحظة على الحواس والأدوات.`, prompt: 'لماذا نعتبر الملاحظة أساس الطريقة العلمية؟' }, remediation: { explanation: 'أنت لا تستطيع حل مشكلة لم ترها أو تلاحظها. الملاحظة هي الشرارة التي تبدأ البحث العلمي.', analogy: 'مثل رؤية الدخان قبل اكتشاف الحريق.' } },
+  { id: '1-3-4', order: 4, text: 'أن يُعرَّف الطالب مفهوم الفرضية.', bloom: 'تذكر', prereqs: ['1-3-3'], instruction: { explanation: `<b>الفرضية:</b> هي تفسير مقترح لظاهرة ما، أو إجابة مبدئية للسؤال، يجب أن تكون <b>قابلة للاختبار</b>.`, prompt: 'ما هي الفرضية وما شرطها الأساسي؟' }, remediation: { explanation: 'الفرضية هي "تخمين علمي مبني على معرفة"، ويجب أن نستطيع اختبارها بالتجربة.', analogy: 'مثل القول: "أعتقد أن النبات يذبل لأنه لا يحصل على ماء كافٍ". هذه فرضية قابلة للاختبار.' } },
+  { id: '1-3-5', order: 5, text: 'أن يُعرَّف الطالب مفهوم التجربة.', bloom: 'تذكر', prereqs: ['1-3-4'], instruction: { explanation: `<b>التجربة:</b> هي اختبار منظم ومضبوط يتم إجراؤه لاختبار صحة الفرضية.`, prompt: 'عرّف التجربة.' }, remediation: { explanation: 'التجربة هي "الاختبار العملي" الذي نثبت به أو ننفي الفرضية.', analogy: 'مثل اختبار دواء جديد على مجموعة من الناس لمعرفة إن كان فعالًا.' } },
+  { id: '1-3-6', order: 6, text: 'أن يُعرَّف الطالب مفهوم الاستنتاج.', bloom: 'تذكر', prereqs: ['1-3-5'], instruction: { explanation: `<b>الاستنتاج:</b> هو الحكم النهائي أو القرار الذي يتوصل إليه العالم بناءً على تحليل البيانات والنتائج.`, prompt: 'عرّف الاستنتاج وكيف يختلف عن الفرضية؟' }, remediation: { explanation: 'الفرضية في البداية (تخمين)، والاستنتاج في النهاية (حكم مبني على النتائج).', analogy: 'مثل المحقق: الفرضية هي الشك، والاستنتاج هو حكم القاضي.' } },
+  { id: '1-3-7', order: 7, text: 'أن يقارن الطالب بين أنواع البيانات.', bloom: 'تحليل', prereqs: ['1-3-6'], instruction: { explanation: `<b>البيانات النوعية:</b> وصفية تعتمد على الحواس (اللون، الرائحة، الملمس).<br><b>البيانات الكمية:</b> عددية تعتمد على القياسات (الطول، الكتلة، الحرارة، الحجم).`, prompt: 'ما الفرق بين البيانات النوعية والكمية مع ذكر مثال لكل منهما؟' }, remediation: { explanation: 'الكيف = النوع (وصف). الكم = الأرقام (قياس).', analogy: 'البيانات النوعية: "التفاحة حمراء وطعمها حلو". البيانات الكمية: "وزن التفاحة 200 جرام وحرارتها 4 درجات".' } },
+  { id: '1-3-8', order: 8, text: 'أن يُحدد الطالب أنواع المُتغيرات.', bloom: 'تطبيق', prereqs: ['1-3-7'], instruction: { explanation: `أنواع المتغيرات في التجربة:<ul><li><b>المتغير المستقل:</b> الذي نغيره (السبب).</li><li><b>المتغير التابع:</b> الذي نقيسه (النتيجة).</li><li><b>العامل الثابت:</b> يبقى كما هو دون تغيير.</li><li><b>الضابط (المجموعة المرجعية):</b> مجموعة لا تتلقى التغيير للمقارنة.</li></ul>`, prompt: 'في تجربة لقياس تأثير الحرارة على ذوبان السكر، ما هو المتغير المستقل والتابع؟' }, remediation: { explanation: 'المستقل هو ما تتحكم به أنت. التابع هو ما تقيسه أنت. الثابت هو ما تحافظ عليه ليكون الاختبار عادلًا.', analogy: 'المستقل: كمية السماد. التابع: نمو النبات. الثابت: نوع التربة وكمية الماء.' } },
+  { id: '1-3-9', order: 9, text: 'أن يعدد الطالب العوامل التي يمكن تغييرها في التجربة.', bloom: 'تذكر', prereqs: ['1-3-8'], instruction: { explanation: `يمكن تغيير عدة عوامل (متغيرات) في التجربة مثل: <b>درجة الحرارة، الضغط، التركيز، الحجم، الوقت، كمية المادة</b>.`, prompt: 'اذكر ثلاثة عوامل يمكن تغييرها في تجربة كيميائية.' }, remediation: { explanation: 'أي شيء قابل للقياس يمكن أن يكون متغيرًا مستقلًا.', analogy: 'مثل أزرار التحكم في التكييف (الحرارة، السرعة).' } },
+  { id: '1-3-10', order: 10, text: 'أن يحدد الطالب ضوابط المقارنة في التجارب.', bloom: 'فهم', prereqs: ['1-3-9'], instruction: { explanation: `<b>ضوابط المقارنة (العينة الضابطة):</b> هي مجموعة من الاختبارات أو المواد تُترك دون تغيير، تُستخدم كمرجع للمقارنة مع المجموعة التجريبية لتأكيد أن التغيير يعود للمتغير المستقل فقط.`, prompt: 'لماذا نحتاج إلى مجموعة ضابطة في التجربة؟' }, remediation: { explanation: 'الضابط هو "شاهد" نقارن به. لو غيّرنا كل شيء، لن نعرف أي تغيير هو السبب.', analogy: 'مثل تجربة دواء جديد: نعطي مجموعة الدواء (تجريبية) ومجموعة سكر (ضابطة) لنعرف الفرق.' } },
+  { id: '1-3-11', order: 11, text: 'أن يفسر الطالب سبب صعوبة ضبط المتغيرات في نموذج مولينا ورولاند دون محاكاة.', bloom: 'تحليل', prereqs: ['1-3-10'], instruction: { explanation: `مولينا ورولاند درسا تفاعلات طبقة الأوزون. <b>لماذا لم يستطيعوا إجراء تجربة حقيقية؟</b><br>لأن الظروف في طبقة الستراتوسفير (الضغط، درجة الحرارة، الأشعة فوق البنفسجية) يصعب جدًا محاكاتها في المختبر، وخطيرة وضخمة. لذلك استخدموا <b>المحاكاة الحاسوبية والنماذج</b>.`, prompt: 'لماذا لم يستخدم مولينا ورولاند مختبرًا حقيقيًا لاختبار الأوزون؟' }, remediation: { explanation: 'لا يمكن سحب طبقة الأوزون إلى المختبر! لذلك لجأوا إلى الكمبيوتر لمحاكاة ما يحدث هناك.', analogy: 'مثل دراسة باطن الأرض أو الفضاء: نستخدم النماذج لأننا لا نستطيع لمسها مباشرة.' } },
+  { id: '1-3-12', order: 12, text: 'أن يُعرَّف الطالب مفهوم النظرية والقانون العلمي.', bloom: 'فهم', prereqs: ['1-3-11'], instruction: { explanation: `<b>النظرية العلمية:</b> تفسير مدعوم بالأدلة لظاهرة طبيعية، تجيب عن سؤال "لماذا؟".<br><b>القانون العلمي:</b> وصف لعلاقة ثابتة في الطبيعة، غالبًا بصيغة رياضية، تجيب عن سؤال "ماذا؟".`, prompt: 'ما الفرق الرئيسي بين النظرية والقانون العلمي؟' }, remediation: { explanation: 'القانون يصف ما يحدث (مثل قانون الجذب). النظرية تفسر لماذا يحدث (نظرية الجاذبية).', analogy: 'القانون: "الكرة تسقط للأسفل". النظرية: "تسقط بسبب الجاذبية".' } },
+  { id: '1-3-13', order: 13, text: 'أن يميّز الطالب بين النظرية والقانون العلمي.', bloom: 'تحليل', prereqs: ['1-3-12'], instruction: { explanation: `<table><tr><th>الوجه</th><th>النظرية</th><th>القانون</th></tr><tr><td>السؤال</td><td>لماذا؟ (تفسير)</td><td>ماذا؟ (وصف)</td></tr><tr><td>طبيعتها</td><td>قد تتعدل مع أدلة جديدة</td><td>ثابتة (نادرًا ما تتغير)</td></tr><tr><td>مثال</td><td>نظرية دالتون الذرية</td><td>قانون حفظ الكتلة</td></tr></table>`, prompt: 'هل يمكن أن تتحول النظرية إلى قانون أو العكس؟ علل.' }, remediation: { explanation: 'النظرية لا تصبح قانونًا، بل قد تدعمه. النظرية تشرح، والقانون يصف العلاقة.', analogy: 'مثل وصف الملعب (قانون) وشرح قواعد اللعبة (نظرية).' } }
+];
+
+const ITEMS = {
+  '1-3-1': [
+    { q: 'ما تعريف الطريقة العلمية؟', opts: ['تخمين عشوائي', 'خطوات منظمة لحل المشكلات', 'تجربة واحدة', 'قراءة كتاب'], ans: 1, expl: 'الطريقة العلمية هي خطوات منظمة.', wrongMap: { "0": 'ليست عشوائية.', "2": 'تتضمن عدة خطوات.', "3": 'القراءة جزء منها فقط.' } },
+    { q: 'الهدف من الطريقة العلمية هو:', opts: ['الإجابة عن الأسئلة وحل المشكلات', 'تضييع الوقت', 'زيادة التعقيد', 'إخفاء الحقائق'], ans: 0, expl: 'الهدف هو الإجابة عن الأسئلة.', wrongMap: { "1": 'توفير للوقت والجهد.', "2": 'تبسيط الفهم.', "3": 'كشف الحقائق.' } },
+    { q: 'هل الطريقة العلمية خطية دائمًا (بالترتيب)؟', opts: ['نعم، لا يمكن تغييرها', 'لا، قد يعود العالم لخطوة سابقة', 'لا، يمكن تجاهلها', 'نعم، لكن بشرط'], ans: 1, expl: 'قد يعود العالم لخطوات سابقة أو يكررها.', wrongMap: { "0": 'مرنة وليست صلبة.', "2": 'لا يمكن تجاهلها.', "3": 'المرونة أساسية.' } }
+  ],
+  '1-3-2': [
+    { q: 'الخطوة الأولى في الطريقة العلمية هي:', opts: ['الفرضية', 'الملاحظة', 'الاستنتاج', 'التجربة'], ans: 1, expl: 'تبدأ الملاحظة العلمية.', wrongMap: { "0": 'الفرضية تأتي لاحقًا.', "2": 'الاستنتاج في النهاية.', "3": 'التجربة لاحقًا.' } },
+    { q: 'ماذا تأتي بعد صياغة الفرضية؟', opts: ['الاستنتاج', 'التجربة', 'الملاحظة', 'طرح السؤال'], ans: 1, expl: 'بعد الفرضية نختبرها بالتجربة.', wrongMap: { "0": 'الاستنتاج في النهاية.', "2": 'الملاحظة في البداية.', "3": 'السؤال قبل الفرضية.' } },
+    { q: 'الخطوة التي يتم فيها تحليل البيانات هي:', opts: ['الأولى', 'الثانية', 'الرابعة', 'الأخيرة'], ans: 2, expl: 'تحليل البيانات يأتي بعد التجربة (الخطوة الرابعة).', wrongMap: { "0": 'الأولى هي الملاحظة.', "1": 'الثانية هي الفرضية.', "3": 'الأخيرة هي الاستنتاج.' } }
+  ],
+  '1-3-3': [
+    { q: 'لماذا الملاحظة أساس العلم؟', opts: ['لأنها توفر البيانات والأسئلة', 'لأنها سهلة', 'لأنها لا تحتاج أدوات', 'لأنها سريعة'], ans: 0, expl: 'بدون ملاحظة لا توجد بيانات.', wrongMap: { "1": 'قد تكون صعبة.', "2": 'تحتاج حواس وأدوات.', "3": 'قد تحتاج وقتًا.' } },
+    { q: 'تعتمد الملاحظة الجيدة على:', opts: ['التخمين', 'الحواس والأدوات', 'الذاكرة فقط', 'الخيال'], ans: 1, expl: 'نستخدم الحواس والأدوات الدقيقة.', wrongMap: { "0": 'التخمين ليس ملاحظة.', "2": 'الذاكرة وسيلة تخزين.', "3": 'الخيال ليس ملاحظة.' } },
+    { q: 'الملاحظة تسبق:', opts: ['طرح السؤال', 'الكتابة', 'الامتحان', 'النوم'], ans: 0, expl: 'نلاحظ أولاً ثم نسأل.', wrongMap: { "1": 'الكتابة تأتي لاحقًا.', "2": 'الامتحان تقييم.', "3": 'لا علاقة.' } }
+  ],
+  '1-3-4': [
+    { q: 'ما هي الفرضية؟', opts: ['حقيقة مثبتة', 'تفسير مقترح قابل للاختبار', 'قانون علمي', 'نتيجة نهائية'], ans: 1, expl: 'الفرضية تفسير مقترح قابل للاختبار.', wrongMap: { "0": 'لم تُثبت بعد.', "2": 'ليست قانونًا.', "3": 'ليست نتيجة.' } },
+    { q: 'شرط أساسي في الفرضية:', opts: ['أن تكون قابلة للاختبار', 'أن تكون معقدة', 'أن تكون طويلة', 'أن تكون سرية'], ans: 0, expl: 'يجب أن نستطيع اختبارها.', wrongMap: { "1": 'البساطة أفضل.', "2": 'الطول ليس شرطًا.', "3": 'العلم علني.' } },
+    { q: 'أي مما يلي يُعد فرضية؟', opts: ['الماء يغلي عند 100 درجة', 'أعتقد أن النبات ينمو أسرع إذا أضفنا سمادًا', 'قانون الجذب', 'السماء زرقاء'], ans: 1, expl: 'عبارة "أعتقد..." هي تفسير مقترح قابل للاختبار.', wrongMap: { "0": 'هذه حقيقة/قانون.', "2": 'هذا قانون.', "3": 'هذه ملاحظة.' } }
+  ],
+  '1-3-5': [
+    { q: 'ما هي التجربة؟', opts: ['قراءة كتاب', 'اختبار مضبوط للفرضية', 'رسم بياني', 'سؤال'], ans: 1, expl: 'التجربة اختبار للفرضية.', wrongMap: { "0": 'القراءة ليست تجربة.', "2": 'الرسم تحليل بيانات.', "3": 'السؤال بداية البحث.' } },
+    { q: 'الهدف من التجربة:', opts: ['اختبار الفرضية', 'إضاعة الوقت', 'صنع منتج', 'ملء الفراغ'], ans: 0, expl: 'نختبر الفرضية لمعرفة صحتها.', wrongMap: { "1": 'توفير للوقت.', "2": 'البحث عن المعرفة.', "3": 'ليس الهدف.' } },
+    { q: 'التجربة الجيدة يجب أن تكون:', opts: ['عشوائية', 'مضبوطة ومكررة', 'سريعة', 'سرية'], ans: 1, expl: 'يجب ضبط المتغيرات وتكرارها للتأكد.', wrongMap: { "0": 'ليست عشوائية.', "2": 'الدقة أهم من السرعة.', "3": 'العلم علني.' } }
+  ],
+  '1-3-6': [
+    { q: 'ما هو الاستنتاج؟', opts: ['تخمين أولي', 'حكم مبني على البيانات', 'أداة قياس', 'نموذج'], ans: 1, expl: 'الاستنتاج حكم نهائي من البيانات.', wrongMap: { "0": 'هذه الفرضية.', "2": 'الأداة للقياس.', "3": 'النموذج تمثيل.' } },
+    { q: 'الاستنتاج يعتمد على:', opts: ['الخيال', 'تحليل البيانات', 'الحدس', 'رأي العالم فقط'], ans: 1, expl: 'الاستنتاج يبني على البيانات.', wrongMap: { "0": 'ليس خيالًا.', "2": 'ليس حدسًا.', "3": 'ليس رأيًا شخصيًا.' } },
+    { q: 'متى يتم صياغة الاستنتاج؟', opts: ['قبل الملاحظة', 'بعد تحليل البيانات', 'أثناء التجربة', 'بدون بيانات'], ans: 1, expl: 'الاستنتاج يأتي بعد التحليل.', wrongMap: { "0": 'يأتي بعد الملاحظة بكثير.', "2": 'يأتي بعد التجربة.', "3": 'يحتاج بيانات.' } }
+  ],
+  '1-3-7': [
+    { q: 'البيانات النوعية تعتمد على:', opts: ['الأرقام', 'الحواس والوصف', 'الرياضيات', 'الآلات فقط'], ans: 1, expl: 'النوعية وصفية (لون، رائحة).', wrongMap: { "0": 'الأرقام للكمية.', "2": 'الرياضيات للكمية.', "3": 'الآلات للكمية.' } },
+    { q: 'مثال على البيانات الكمية:', opts: ['اللون أحمر', 'الطعم حامض', 'الكتلة 5 جرام', 'الرائحة كريهة'], ans: 2, expl: 'الكتلة رقم (كمية).', wrongMap: { "0": 'وصف (نوعية).', "1": 'وصف (نوعية).', "3": 'وصف (نوعية).' } },
+    { q: 'البيانات النوعية تصف:', opts: ['القياسات الرقمية', 'الخواص الفيزيائية الحسية', 'المعادلات', 'الرسوم البيانية'], ans: 1, expl: 'تصف الخواص الحسية.', wrongMap: { "0": 'الأرقام كمية.', "2": 'المعادلات رياضية.', "3": 'الرسوم للتحليل.' } }
+  ],
+  '1-3-8': [
+    { q: 'المتغير المستقل هو:', opts: ['الذي نقيسه', 'الذي نغيره', 'الذي يبقى ثابتًا', 'الضابط'], ans: 1, expl: 'المستقل هو الذي نغيره.', wrongMap: { "0": 'هذا التابع.', "2": 'هذا العامل الثابت.', "3": 'هذا الضابط.' } },
+    { q: 'المتغير التابع هو:', opts: ['الذي نقيسه', 'الذي نغيره', 'الذي يبقى ثابتًا', 'الضابط'], ans: 0, expl: 'التابع هو ما نقيسه.', wrongMap: { "1": 'هذا المستقل.', "2": 'هذا العامل الثابت.', "3": 'هذا الضابط.' } },
+    { q: 'المجموعة الضابطة هي:', opts: ['التي نغير فيها المتغير', 'التي لا تتغير للمقارنة', 'التي نقيس فيها', 'التي نهملها'], ans: 1, expl: 'الضابطة لا تتغير للمقارنة.', wrongMap: { "0": 'هذه المجموعة التجريبية.', "2": 'نقيس في كلتيهما.', "3": 'لا نهملها بل نستخدمها.' } }
+  ],
+  '1-3-9': [
+    { q: 'أي من هذه العوامل يمكن تغييره في تجربة؟', opts: ['درجة الحرارة', 'نوع الوعاء', 'لون السائل', 'اسم العالم'], ans: 0, expl: 'درجة الحرارة متغير مستقل شائع.', wrongMap: { "1": 'يمكن لكنه عامل ثابت غالبًا.', "2": 'اللون نتيجة.', "3": 'الاسم لا يؤثر.' } },
+    { q: 'العوامل التي يمكن تغييرها تسمى:', opts: ['المتغيرات', 'الثوابت', 'النتائج', 'الضوابط'], ans: 0, expl: 'تسمى المتغيرات.', wrongMap: { "1": 'الثوابت لا تتغير.', "2": 'النتائج تنتج عنها.', "3": 'الضوابط للتحكم.' } },
+    { q: 'من أمثلة العوامل التي يمكن تغييرها:', opts: ['الضغط', 'لون العين', 'اسم المختبر', 'اليوم'], ans: 0, expl: 'الضغط عامل قابل للقياس والتغيير.', wrongMap: { "1": 'لون العين ثابت.', "2": 'الاسم لا يؤثر.', "3": 'اليوم ليس متغيرًا.' } }
+  ],
+  '1-3-10': [
+    { q: 'ما الغرض من المجموعة الضابطة؟', opts: ['المقارنة', 'زيادة النتائج', 'إرباك الطلاب', 'تقليل الوقت'], ans: 0, expl: 'الضابط للمقارنة.', wrongMap: { "1": 'لا تزيد النتائج.', "2": 'توضح النتائج.', "3": 'قد تحتاج وقتًا.' } },
+    { q: 'ضوابط المقارنة تضمن:', opts: ['أن التغيير سببه المتغير المستقل', 'أن التجربة فاشلة', 'أن الوقت يمر', 'لا شيء'], ans: 0, expl: 'تضمن عزل أثر المتغير المستقل.', wrongMap: { "1": 'تضمن نجاح التجربة.', "2": 'لا علاقة بالوقت.', "3": 'لها دور كبير.' } },
+    { q: 'إذا لم نستخدم مجموعة ضابطة:', opts: ['لا يمكننا التأكد من سبب التغيير', 'تصبح التجربة أسهل', 'تزيد الدقة', 'لا فرق'], ans: 0, expl: 'بدون ضابط لا نعرف سبب التغيير.', wrongMap: { "1": 'أسهل لكن غير دقيقة.', "2": 'تقل الدقة.', "3": 'هناك فرق كبير.' } }
+  ],
+  '1-3-11': [
+    { q: 'لماذا استخدم مولينا ورولاند المحاكاة الحاسوبية؟', opts: ['لأنهم لا يملكون مختبرًا', 'لأن ظروف الستراتوسفير صعبة وخطيرة', 'لأنهم يحبون الكمبيوتر', 'لأنها أسرع'], ans: 1, expl: 'الظروف في الستراتوسفير يصعب محاكاتها حقيقيًا.', wrongMap: { "0": 'المختبرات متاحة.', "2": 'السبب علمي.', "3": 'السبب علمي وليس سرعة.' } },
+    { q: 'صعوبة ضبط المتغيرات في نموذج مولينا ورولاند كانت بسبب:', opts: ['قلة خبرتهم', 'صعوبة محاكاة الضغط والحرارة والأشعة', 'عدم وجود ميزانية', 'رفض الحكومة'], ans: 1, expl: 'الظروف الجوية معقدة جدًا.', wrongMap: { "0": 'كانوا خبراء.', "2": 'الميزانية ليست العائق.', "3": 'السبب علمي.' } },
+    { q: 'النماذج الحاسوبية في هذه الحالة:', opts: ['بديل ضروري للتجربة الحقيقية', 'لا قيمة لها', 'دقيقة 100%', 'أسهل من التجربة'], ans: 0, expl: 'بديل ضروري عندما تكون التجربة مستحيلة.', wrongMap: { "1": 'لها قيمة كبيرة.', "2": 'ليست دقيقة 100%.', "3": 'قد تكون معقدة.' } }
+  ],
+  '1-3-12': [
+    { q: 'النظرية العلمية تجيب عن سؤال:', opts: ['لماذا؟', 'ماذا؟', 'متى؟', 'كيف؟'], ans: 0, expl: 'النظرية تفسر (لماذا).', wrongMap: { "1": 'القانون يصف (ماذا).', "2": 'السؤال الزمني.', "3": 'كيف قد تكون إجراء.' } },
+    { q: 'القانون العلمي يصف:', opts: ['تفسير الظاهرة', 'علاقة ثابتة في الطبيعة', 'رأي العالم', 'تخمين'], ans: 1, expl: 'القانون يصف علاقة ثابتة.', wrongMap: { "0": 'هذا عمل النظرية.', "2": 'ليس رأيًا.', "3": 'ليس تخمينًا.' } },
+    { q: 'أي مما يلي قانون علمي؟', opts: ['نظرية دالتون', 'قانون حفظ الكتلة', 'نظرية الجاذبية', 'نظرية الكم'], ans: 1, expl: 'قانون حفظ الكتلة يصف علاقة ثابتة.', wrongMap: { "0": 'نظرية.', "2": 'نظرية.', "3": 'نظرية.' } }
+  ],
+  '1-3-13': [
+    { q: 'الفرق بين النظرية والقانون أن النظرية:', opts: ['تصف علاقة', 'تفسر وتجيب لماذا', 'أثبتت نهائيًا', 'لا تتغير أبدًا'], ans: 1, expl: 'النظرية تفسر.', wrongMap: { "0": 'القانون يصف.', "2": 'قابلة للتعديل.', "3": 'قد تتغير بأدلة جديدة.' } },
+    { q: 'أيهما أكثر ثباتًا عادةً؟', opts: ['النظرية', 'القانون', 'كلاهما متساويان', 'لا شيء'], ans: 1, expl: 'القانون أكثر ثباتًا.', wrongMap: { "0": 'النظرية قابلة للتعديل.', "2": 'ليسا متساويين.', "3": 'القانون ثابت.' } },
+    { q: 'هل يمكن للنظرية أن تصبح قانونًا؟', opts: ['نعم دائمًا', 'لا، هما نوعان مختلفان من المعرفة', 'أحيانًا', 'لا أحد يعرف'], ans: 1, expl: 'النظرية تشرح، والقانون يصف، لا يتحولان لبعضهما.', wrongMap: { "0": 'لا تتحول دائمًا.', "2": 'ليسا نفس الشيء.', "3": 'العلم يوضح ذلك.' } }
+  ]
+};
+
+const Store = (() => {
+  let backend = null, db = null;
+  const mem = { student: [], progress: [], attempts: [], certificates: [] };
+  const DB_NAME = 'chem1-shared';
+  function tryIDB() {
+    return new Promise((resolve) => {
+      let req;
+      try { req = indexedDB.open(DB_NAME, 1); } catch (e) { resolve(false); return; }
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains('student')) d.createObjectStore('student', { keyPath: 'id' });
+        if (!d.objectStoreNames.contains('progress')) d.createObjectStore('progress', { keyPath: 'objectiveId' });
+        if (!d.objectStoreNames.contains('attempts')) d.createObjectStore('attempts', { keyPath: 'id', autoIncrement: true });
+        if (!d.objectStoreNames.contains('certificates')) d.createObjectStore('certificates', { keyPath: 'id' });
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(true); };
+      req.onerror = () => resolve(false);
+      req.onblocked = () => resolve(false);
+    });
+  }
+  function tryLS() { try { localStorage.setItem('__ct__', '1'); localStorage.removeItem('__ct__'); return true; } catch (e) { return false; } }
+  function lsAll(s) { try { return JSON.parse(localStorage.getItem(DB_NAME + ':' + s) || '[]'); } catch (e) { return []; } }
+  function lsSave(s, a) { try { localStorage.setItem(DB_NAME + ':' + s, JSON.stringify(a)); } catch (e) {} }
+  return {
+    get backend() { return backend; },
+    open: async function() {
+      if (await tryIDB()) { backend = 'idb'; return; }
+      if (tryLS()) { backend = 'ls'; return; }
+      backend = 'mem';
+    },
+    getAll: async function(s) {
+      if (backend === 'idb') return new Promise((res, rej) => { const tx = db.transaction(s, 'readonly'); const r = tx.objectStore(s).getAll(); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+      if (backend === 'ls') return lsAll(s);
+      return mem[s].slice();
+    },
+    put: async function(s, v) {
+      if (backend === 'idb') return new Promise((res, rej) => { const tx = db.transaction(s, 'readwrite'); const r = tx.objectStore(s).put(v); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+      const kf = s === 'progress' ? 'objectiveId' : 'id';
+      if (backend === 'ls') {
+        const a = lsAll(s);
+        if (s === 'attempts') { v.id = Date.now() + Math.random(); a.push(v); }
+        else { const i = a.findIndex(x => x[kf] === v[kf]); if (i >= 0) a[i] = v; else a.push(v); }
+        lsSave(s, a); return;
+      }
+      if (s === 'attempts') { v.id = Date.now() + Math.random(); mem[s].push(v); }
+      else { const i = mem[s].findIndex(x => x[kf] === v[kf]); if (i >= 0) mem[s][i] = v; else mem[s].push(v); }
+    },
+    clear: async function(s) {
+      if (backend === 'idb') return new Promise((res, rej) => { const tx = db.transaction(s, 'readwrite'); const r = tx.objectStore(s).clear(); r.onsuccess = () => res(); r.onerror = () => rej(r.error); });
+      if (backend === 'ls') { lsSave(s, []); return; }
+      mem[s] = [];
+    }
+  };
+})();
+
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function shuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function todayHijri() { try { return new Date().toLocaleDateString('ar-SA-u-ca-islamic'); } catch (e) { return new Date().toLocaleDateString('ar-SA'); } }
+function todayGreg() { return new Date().toLocaleDateString('ar-SA-u-ca-gregory'); }
+function hashStr(s) { let h = 0; for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0; return Math.abs(h).toString(36).toUpperCase().slice(0, 8); }
+function certCode(type, subject) {
+  const seed = String(state.student.id) + type + subject + Date.now() + Math.random();
+  return 'K1-' + type + '-' + subject + '-' + hashStr(seed);
+}
+function isReflectionValid(text, objectiveId) {
+  const trimmed = text.trim();
+  if (trimmed.length < 20) return { ok: false, msg: 'يجب أن تكتب 20 حرفًا على الأقل.' };
+  const words = trimmed.split(/\s+/).filter(w => w.length > 0);
+  if (words.length < 3) return { ok: false, msg: 'يجب أن تكتب 3 كلمات على الأقل.' };
+  const chars = trimmed.replace(/\s+/g, '');
+  const counts = {}; let max = 0;
+  for (const c of chars) { counts[c] = (counts[c] || 0) + 1; if (counts[c] > max) max = counts[c]; }
+  if (max / chars.length > 0.5) return { ok: false, msg: 'اكتب شرحًا حقيقيًا (لا تكرر حرفًا واحدًا).' };
+  if (objectiveId && REFLECTION_KEYWORDS[objectiveId]) {
+    const kws = REFLECTION_KEYWORDS[objectiveId];
+    let found = false;
+    for (let i = 0; i < kws.length; i++) { if (trimmed.indexOf(kws[i]) !== -1) { found = true; break; } }
+    if (!found) return { ok: false, msg: 'اذكر مفهومًا واحدًا على الأقل من الدرس (مثل: ' + kws.slice(0, 3).join('، ') + ').' };
+  }
+  return { ok: true };
+}
+function storageWarning() {
+  if (Store.backend === 'mem') return '<div class="storage-warn">⚠️ التخزين غير متاح (file://). شغّل خادمًا محليًا.</div>';
+  if (Store.backend === 'ls') return '<div class="storage-warn">ℹ️ التخزين عبر localStorage (بديل).</div>';
+  return '';
+}
+
+async function getStudent() { const a = await Store.getAll('student'); return a[0] || null; }
+async function saveStudent(s) { await Store.put('student', s); }
+
+function prereqsSatisfied(objId, progress) {
+  const obj = OBJECTIVES.find(o => o.id === objId);
+  if (!obj) return false;
+  for (const p of obj.prereqs) {
+    if (EXTERNAL_PREREQS.indexOf(p) !== -1) continue;
+    const pr = progress.find(x => x.objectiveId === p);
+    if (!pr || pr.state !== 'MASTERED') return false;
+  }
+  return true;
+}
+
+async function initializeProgress() {
+  const existing = await Store.getAll('progress');
+  const existingForLesson = existing.filter(p => (p.lessonId === LESSON_ID) || (p.objectiveId && p.objectiveId.indexOf(LESSON_ID + '-') === 0));
+  if (existingForLesson.length === OBJECTIVES.length) return existing;
+  
+  for (const o of OBJECTIVES) {
+    const existingObj = existing.find(x => x.objectiveId === o.id);
+    if (!existingObj) {
+      const r = {
+        objectiveId: o.id, lessonId: LESSON_ID, chapterId: CHAPTER_ID,
+        state: prereqsSatisfied(o.id, existing) ? 'AVAILABLE' : 'LOCKED',
+        masteryScore: 0, remediationRounds: 0, lastAttemptAt: null, masteredAt: null
+      };
+      await Store.put('progress', r);
+    }
+  }
+  return await Store.getAll('progress');
+}
+
+async function updateProgress(objId, patch) {
+  const p = state.progress.find(x => x.objectiveId === objId);
+  Object.assign(p, patch);
+  await Store.put('progress', p);
+}
+function getProgress(objId) { return state.progress.find(x => x.objectiveId === objId); }
+async function unlockDependents() {
+  for (const o of OBJECTIVES) {
+    const p = getProgress(o.id);
+    if (p.state === 'LOCKED' && prereqsSatisfied(o.id, state.progress)) {
+      p.state = 'AVAILABLE';
+      await Store.put('progress', p);
+    }
+  }
+}
+function allMastered() { return OBJECTIVES.every(o => getProgress(o.id).state === 'MASTERED'); }
+function totalMastered() { return OBJECTIVES.filter(o => getProgress(o.id).state === 'MASTERED').length; }
+
+let state = { student: null, progress: [], currentObjective: null };
+const view = document.getElementById('view');
+
+function resetView() {
+  view.innerHTML = '';
+  const warn = storageWarning();
+  if (warn) view.insertAdjacentHTML('beforeend', warn);
+}
+
+/* التقسيم المنطقي للمجموعات */
+const GROUPS = [
+  { title: 'المجموعة الأولى: مفاهيم وخطوات الطريقة العلمية', start: 0, end: 6 },
+  { title: 'المجموعة الثانية: البيانات والمتغيرات', start: 6, end: 11 },
+  { title: 'المجموعة الثالثة: النظرية والقانون العلمي', start: 11, end: 13 }
+];
+
+function renderLessonHome() {
+  resetView();
+  const lessonProgress = state.progress.filter(p => (p.lessonId === LESSON_ID) || (p.objectiveId && p.objectiveId.indexOf(LESSON_ID + '-') === 0));
+  const mastered = lessonProgress.filter(p => p.state === 'MASTERED').length;
+  const total = OBJECTIVES.length;
+  const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
+  
+  view.insertAdjacentHTML('beforeend', `
+    <div class="breadcrumb">
+      <div><a href="index.html">🏠 الرئيسية</a> · <span>${LESSON_CODE} · الفصل الأول: مقدمة في علم الكيمياء</span></div>
+      <a href="index.html" class="btn outline" style="font-size:.8rem;padding:.3rem .6rem;">عودة للمنهج</a>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem">
+        <div><b>${LESSON_CODE} · ${LESSON_TITLE}</b></div>
+        <div class="muted">${mastered} / ${total} هدفًا متقنًا (${pct}%)</div>
+      </div>
+      <div class="progress-bar"><div style="width:${pct}%"></div></div>
+    </div>
+    <div id="obj-list"></div>
+    <div id="cert-area" style="margin-top:1.5rem"></div>`);
+
+  const list = document.getElementById('obj-list');
+  
+  GROUPS.forEach(group => {
+    const groupTitle = document.createElement('div');
+    groupTitle.className = 'group-title';
+    groupTitle.textContent = group.title;
+    list.appendChild(groupTitle);
+
+    OBJECTIVES.slice(group.start, group.end).forEach(o => {
+      const p = getProgress(o.id);
+      if (!p) return;
+      const labels = { LOCKED: 'مقفل 🔒', AVAILABLE: 'متاح', MASTERED: 'متقن ✓', DIAGNOSTIC: 'قيد التعلّم', INSTRUCTION: 'قيد التعلّم', CHECK: 'قيد التعلّم', REMEDIATION: 'يحتاج معالجة', RECHECK: 'قيد التعلّم' };
+      const cls = p.state === 'LOCKED' ? 'locked' : (p.state === 'MASTERED' ? 'mastered' : '');
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'objective-row ' + cls;
+      row.innerHTML = '<div class="obj-text"><div><span class="obj-id">' + o.id + '</span> <span class="state-badge state-' + p.state + '">' + labels[p.state] + '</span></div><div style="margin-top:.35rem">' + escapeHtml(o.text) + '</div></div><div style="font-size:.85rem;color:var(--text-sec);white-space:nowrap">' + o.bloom + '</div>';
+      row.addEventListener('click', () => {
+        if (p.state === 'LOCKED') { alert('يتطلب إتقان الهدف السابق أولًا.'); return; }
+        state.currentObjective = o.id;
+        renderObjective();
+      });
+      list.appendChild(row);
+    });
+  });
+
+  const certArea = document.getElementById('cert-area');
+  if (mastered === total) {
+    certArea.innerHTML = '<button class="primary" id="btn-cert" style="width:100%">🎓 استخرج شهادة إتمام الدرس</button>';
+    document.getElementById('btn-cert').addEventListener('click', renderCertificate);
+  } else {
+    certArea.innerHTML = '<p class="muted" style="text-align:center">أكمل الأهداف الـ13 لاستخراج شهادة إتمام الدرس (' + mastered + '/' + total + ').</p>';
+  }
+}
+
+async function renderObjective() {
+  const obj = OBJECTIVES.find(o => o.id === state.currentObjective);
+  const p = getProgress(obj.id);
+  if (p.state === 'AVAILABLE') { await updateProgress(obj.id, { state: 'DIAGNOSTIC' }); runDiagnostic(obj); }
+  else if (p.state === 'DIAGNOSTIC') runDiagnostic(obj);
+  else if (p.state === 'INSTRUCTION') showInstruction(obj);
+  else if (p.state === 'CHECK') runCheck(obj, 'check');
+  else if (p.state === 'REMEDIATION') showRemediation(obj);
+  else if (p.state === 'RECHECK') runCheck(obj, 'recheck');
+  else if (p.state === 'MASTERED') showMastered(obj);
+  else renderLessonHome();
+}
+
+function buildFeedback(item, chosenIdx) {
+  if (chosenIdx === item.ans) {
+    return '<div class="feedback correct">✓ إجابة صحيحة<br>' + escapeHtml(item.expl) + '</div>';
+  }
+  let hint = (item.wrongMap && item.wrongMap[String(chosenIdx)]) ? item.wrongMap[String(chosenIdx)] : '';
+  let html = '<div class="feedback wrong">✗ إجابة خاطئة<br>الإجابة الصحيحة: <b>' + escapeHtml(item.opts[item.ans]) + '</b>';
+  if (hint) html += '<br><span style="color:var(--text-sec)">' + escapeHtml(hint) + '</span>';
+  else html += '<br>' + escapeHtml(item.expl);
+  html += '</div>';
+  return html;
+}
+
+function runDiagnostic(obj) {
+  const pool = shuffle(ITEMS[obj.id]).slice(0, 2);
+  let idx = 0, answered = false;
+  const objHeader = '<h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: تشخيص سريع (' + pool.length + ' أسئلة — لا تُحتسب)</p>';
+  function showQ() {
+    answered = false;
+    if (idx >= pool.length) { updateProgress(obj.id, { state: 'INSTRUCTION' }).then(() => showInstruction(obj)); return; }
+    resetView();
+    const item = pool[idx];
+    view.insertAdjacentHTML('beforeend', '<div class="card">' + objHeader + '<div class="muted" style="margin-bottom:.5rem">السؤال ' + (idx + 1) + ' من ' + pool.length + '</div><div class="question">' + escapeHtml(item.q) + '</div><div class="options" id="opts"></div><button type="button" class="skip-btn" id="skip-btn">لا أعرف — أرني الإجابة</button><div id="fb" aria-live="polite"></div><div class="row"><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+    const optsBox = document.getElementById('opts');
+    item.opts.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'option';
+      b.textContent = o;
+      b.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        const allOpts = optsBox.querySelectorAll('.option');
+        for (let k = 0; k < allOpts.length; k++) allOpts[k].disabled = true;
+        document.getElementById('skip-btn').disabled = true;
+        b.classList.add(i === item.ans ? 'correct' : 'wrong');
+        allOpts[item.ans].classList.add('correct');
+        document.getElementById('fb').innerHTML = buildFeedback(item, i);
+        setTimeout(function() { idx++; showQ(); }, 1600);
+      });
+      optsBox.appendChild(b);
+    });
+    document.getElementById('skip-btn').addEventListener('click', function() {
+      if (answered) return;
+      answered = true;
+      const allOpts = optsBox.querySelectorAll('.option');
+      for (let k = 0; k < allOpts.length; k++) allOpts[k].disabled = true;
+      document.getElementById('skip-btn').disabled = true;
+      allOpts[item.ans].classList.add('correct');
+      document.getElementById('fb').innerHTML = '<div class="feedback neutral">الإجابة الصحيحة: <b>' + escapeHtml(item.opts[item.ans]) + '</b><br>' + escapeHtml(item.expl) + '</div>';
+      setTimeout(function() { idx++; showQ(); }, 2200);
+    });
+  }
+  showQ();
+}
+
+function showInstruction(obj) {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><div class="breadcrumb"><button class="outline" onclick="renderLessonHome()">← العودة للقائمة</button></div><h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: تعليم · المستوى البلومي: ' + obj.bloom + '</p><div class="prose">' + obj.instruction.explanation + '</div><hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0"><h3>سؤال تأملي (إلزامي)</h3><p class="muted">' + escapeHtml(obj.instruction.prompt) + '</p><textarea id="reflection" class="textarea" placeholder="اكتب شرحك هنا (3 كلمات على الأقل، 20 حرفًا، مع ذكر مفهوم من الدرس)..."></textarea><p class="muted" id="refl-status" aria-live="polite">لم تكتب بعد.</p><div class="row"><button id="btn-check" class="primary" disabled>أفهم، اختبرني</button><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+  const ta = document.getElementById('reflection');
+  const btn = document.getElementById('btn-check');
+  const status = document.getElementById('refl-status');
+  ta.addEventListener('input', function() {
+    const v = isReflectionValid(ta.value, obj.id);
+    btn.disabled = !v.ok;
+    status.textContent = v.ok ? '✓ جاهز' : (v.msg || '');
+  });
+  btn.addEventListener('click', async function() {
+    await Store.put('attempts', { objectiveId: obj.id, itemId: 'reflection', response: ta.value, correct: true, type: 'self_explanation', createdAt: Date.now() });
+    await updateProgress(obj.id, { state: 'CHECK' });
+    runCheck(obj, 'check');
+  });
+}
+
+function runCheck(obj, mode) {
+  const pool = shuffle(ITEMS[obj.id]);
+  let idx = 0, correct = 0, answered = false;
+  const objHeader = '<h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: ' + (mode === 'check' ? 'تحقق' : 'إعادة تحقق') + ' · ' + pool.length + ' أسئلة · عتبة الإتقان ' + Math.round(THRESHOLD*100) + '%</p>';
+  async function showQ() {
+    answered = false;
+    if (idx >= pool.length) {
+      const score = correct / pool.length;
+      const p = getProgress(obj.id);
+      const rounds = p.remediationRounds || 0;
+      if (score >= THRESHOLD) {
+        await updateProgress(obj.id, { state: 'MASTERED', masteryScore: score, masteredAt: Date.now() });
+        await unlockDependents();
+        showMastered(obj);
+      } else {
+        const newRounds = mode === 'recheck' ? rounds + 1 : rounds;
+        if (newRounds >= 3) {
+          await updateProgress(obj.id, { state: 'REMEDIATION', masteryScore: score, remediationRounds: newRounds });
+          showStuck(obj);
+        } else {
+          await updateProgress(obj.id, { state: 'REMEDIATION', masteryScore: score, remediationRounds: newRounds });
+          showRemediation(obj);
+        }
+      }
+      return;
+    }
+    resetView();
+    const item = pool[idx];
+    view.insertAdjacentHTML('beforeend', '<div class="card"><div class="breadcrumb"><button class="outline" onclick="if(confirm(\'هل تريد الخروج من الاختبار والعودة للقائمة؟\')) renderLessonHome()">← العودة للقائمة</button></div>' + objHeader + '<div class="muted" style="margin-bottom:.5rem">السؤال ' + (idx + 1) + ' من ' + pool.length + '</div><div class="question">' + escapeHtml(item.q) + '</div><div class="options" id="opts"></div><div id="fb" aria-live="polite"></div></div>');
+    const optsBox = document.getElementById('opts');
+    item.opts.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'option';
+      b.textContent = o;
+      b.addEventListener('click', async function() {
+        if (answered) return;
+        answered = true;
+        const allOpts = optsBox.querySelectorAll('.option');
+        for (let k = 0; k < allOpts.length; k++) allOpts[k].disabled = true;
+        b.classList.add(i === item.ans ? 'correct' : 'wrong');
+        allOpts[item.ans].classList.add('correct');
+        if (i === item.ans) correct++;
+        await Store.put('attempts', { objectiveId: obj.id, itemId: item.q.slice(0, 40), response: o, correct: i === item.ans, type: mode, createdAt: Date.now() });
+        document.getElementById('fb').innerHTML = buildFeedback(item, i);
+        setTimeout(function() { idx++; showQ(); }, 1600);
+      });
+      optsBox.appendChild(b);
+    });
+  }
+  showQ();
+}
+
+function showRemediation(obj) {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><div class="breadcrumb"><button class="outline" onclick="renderLessonHome()">← العودة للقائمة</button></div><h2 style="margin-top:0">' + escapeHtml(obj.text) + '</h2><p class="muted">المرحلة: معالجة — محتوى بديل لتقوية الفهم</p><div class="prose"><h3>تشبيه</h3><p>' + escapeHtml(obj.remediation.analogy) + '</p><h3>شرح بديل</h3>' + obj.remediation.explanation + '</div><div class="row" style="margin-top:1.5rem"><button id="btn-recheck" class="primary">أعد الاختبار</button><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+  document.getElementById('btn-recheck').addEventListener('click', async function() {
+    await updateProgress(obj.id, { state: 'RECHECK' });
+    runCheck(obj, 'recheck');
+  });
+}
+
+function showStuck(obj) {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><h2 style="margin-top:0">هذا الهدف يحتاج مراجعة إضافية</h2><p>حاولت ثلاث مرات. لا بأس — هذا طبيعي. يمكنك:</p><ul><li>مراجعة الشرح الأول للهدف.</li><li>تجربة المعالجة مرة أخرى بمحتوى مختلف.</li><li>المحاولة لاحقًا أو مشاركة تقريرك مع معلمك.</li></ul><div class="row"><button id="btn-instruction" class="primary">راجع الشرح الأول</button><button id="btn-retry" class="outline">جرب المعالجة مرة أخرى</button><button class="outline" onclick="renderLessonHome()">العودة للقائمة</button></div></div>');
+  document.getElementById('btn-instruction').addEventListener('click', async function() {
+    await updateProgress(obj.id, { state: 'INSTRUCTION' });
+    showInstruction(obj);
+  });
+  document.getElementById('btn-retry').addEventListener('click', function() { showRemediation(obj); });
+}
+
+function showMastered(obj) {
+  resetView();
+  const done = totalMastered();
+  const total = OBJECTIVES.length;
+  const lessonDone = done === total;
+  let primaryBtn = '';
+  if (lessonDone) {
+    primaryBtn = '<button id="btn-cert" class="primary">🎓 استخرج شهادة إتمام الدرس</button>';
+  } else {
+    primaryBtn = '<button id="btn-list" class="primary">العودة إلى أهداف الدرس</button>';
+  }
+  view.insertAdjacentHTML('beforeend', '<div class="card" style="text-align:center"><h2 style="margin-top:0;color:var(--positive)">🎉 أتقنت هذا الهدف!</h2><p>' + escapeHtml(obj.text) + '</p><div class="progress-bar" style="margin:1.5rem 0"><div style="width:' + Math.round(done/total*100) + '%"></div></div><p class="muted">' + done + ' / ' + total + ' هدفًا متقنًا في هذا الدرس</p><div class="row" style="justify-content:center">' + primaryBtn + '<a href="index.html" class="btn outline">🏠 خريطة المنهج</a></div></div>');
+  if (lessonDone) {
+    document.getElementById('btn-cert').addEventListener('click', renderCertificate);
+  } else {
+    document.getElementById('btn-list').addEventListener('click', function() { renderLessonHome(); });
+  }
+}
+
+async function renderCertificate() {
+  resetView();
+  const existing = await Store.getAll('certificates');
+  let cert = null;
+  for (const c of existing) {
+    if (c.type === 'lesson' && c.lessonId === LESSON_ID) { cert = c; break; }
+  }
+  if (!cert) {
+    const code = certCode('L1-3', LESSON_ID);
+    cert = { id: code, type: 'lesson', lessonId: LESSON_ID, lessonCode: LESSON_CODE, studentName: state.student.name, issuedAt: Date.now() };
+    await Store.put('certificates', cert);
+  }
+  view.insertAdjacentHTML('beforeend', '<div class="certificate"><h2>شهادة إتمام درس</h2><div class="course">منصة قطابري لإتقان كيمياء 1</div><div style="margin-top:2rem">تشهد المنصة بأن الطالب</div><div class="name">' + escapeHtml(state.student.name) + '</div><div style="font-size:1.1rem">قد أتمّ بنجاح درس</div><div style="font-size:1.3rem;font-weight:600;margin:.5rem 0">' + LESSON_TITLE + ' (' + LESSON_CODE + ')</div><div class="course">بتاريخ: ' + todayHijri() + ' هـ — ' + todayGreg() + ' م</div><div class="code">رقم التحقق: ' + cert.id + '</div><div class="sig">المعلم محمد قطابري راجحي<br><span class="muted" style="font-weight:400;font-size:.85rem">مجمع العز التعليمي</span></div><div class="muted" style="margin-top:1.5rem;font-size:.8rem">هذه الشهادة صادرة من المنصة بناءً على تقدم الطالب المحفوظ على جهازه، وليست شهادة معتمدة رسميًا.</div></div><div class="row no-print" style="justify-content:center"><button id="btn-print" class="primary">🖨️ طباعة / حفظ PDF</button><a href="index.html" class="btn outline">🏠 الرئيسية</a></div>');
+  document.getElementById('btn-print').addEventListener('click', function() { window.print(); });
+}
+
+(async function() {
+  try {
+    await Store.open();
+    state.student = await getStudent();
+    if (!state.student) { renderNamePrompt(); return; }
+    await continueBoot();
+  } catch (e) {
+    view.innerHTML = '<div class="card"><h2>خطأ</h2><p>' + escapeHtml(e.message || String(e)) + '</p><a href="index.html" class="btn">🏠 الرئيسية</a></div>';
+  }
+})();
+
+function renderNamePrompt() {
+  resetView();
+  view.insertAdjacentHTML('beforeend', '<div class="card"><h2 style="margin-top:0">قبل أن تبدأ</h2><p>لم نجد اسمك في هذا المتصفح. اكتب اسمك:</p><input id="lesson-name" type="text" maxlength="50" placeholder="اسمك" style="width:100%;padding:.8rem;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:1rem;margin-bottom:1rem"><button id="lesson-start" class="primary" style="width:100%">ابدأ</button><div class="row" style="margin-top:1rem"><a href="index.html" class="btn outline">🏠 الصفحة الرئيسية</a></div></div>');
+  document.getElementById('lesson-start').addEventListener('click', async function() {
+    const name = document.getElementById('lesson-name').value.trim();
+    if (name.length < 2) { alert('اكتب اسمًا لا يقل عن حرفين'); return; }
+    state.student = { id: 'stu-' + Date.now(), name: name, createdAt: Date.now() };
+    await saveStudent(state.student);
+    await continueBoot();
+  });
+}
+
+async function continueBoot() {
+  await initializeProgress();
+  state.progress = await Store.getAll('progress');
+  renderLessonHome();
+}
+</script>
+</body>
+</html>
